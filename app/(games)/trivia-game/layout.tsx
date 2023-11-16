@@ -1,0 +1,1 @@
+// any layouts used between all pages of the trivia game
