@@ -1,7 +1,16 @@
-import React from 'react'
+import React from "react";
+
+//components
+import GameTitle from "../../components/GameTitle";
+import BackgroundBox from "../../components/BackgroundBox";
 
 export default function page() {
-  return (
-    <div>Lobby page for the trivia game</div>
-  )
+    return (
+        <div className="bg-blue-500 min-h-screen flex ">
+            <BackgroundBox>
+                <GameTitle title="Trivia Game" />
+                Lobby page for the trivia game
+            </BackgroundBox>
+        </div>
+    );
 }
