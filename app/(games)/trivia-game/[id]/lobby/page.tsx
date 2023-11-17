@@ -9,7 +9,6 @@ export default function page() {
         <div className="bg-blue-500 min-h-screen flex ">
             <BackgroundBox>
                 <GameTitle title="Trivia Game" />
-                Lobby page for the trivia game
             </BackgroundBox>
         </div>
     );
