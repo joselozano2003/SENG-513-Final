@@ -5,9 +5,16 @@ interface GameTitleProps {
 }
 
 const GameTitle: React.FC<GameTitleProps> = ({ title }: GameTitleProps) => {
+    const [firstWord, secondWord] = title.split(" ");
+
     return (
-        <div className="m-16 p-7 inline-block text-white rounded-xl">
-            <h1 className="font-bold text-primary text-6xl">{title}</h1>
+        <div className="flex flex-col justify-between items-center text-white m-5">
+            <h1 className="font-bold text-primary text-8xl" style={{ textShadow: "5px 5px blue", marginRight: "20%" }}>
+                {firstWord}
+            </h1>
+            <h1 className="font-bold text-primary text-8xl ml-20" style={{ textShadow: "5px 5px blue", marginLeft: "20%" }}>
+                {secondWord}
+            </h1>
         </div>
     );
 };

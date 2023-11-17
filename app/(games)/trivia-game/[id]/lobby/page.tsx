@@ -14,14 +14,15 @@ export default function TriviaLobby() {
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        padding: "6rem 6vw"
     };
 
     return (
-        <div className="flex justify-between h-screen p-5 bg-cover" style={styling}>
-            <div className="flex flex-col justify-between m-16" style={{ marginLeft: "4.8%" }}>
+        <div className="flex justify-between h-screen bg-cover" style={styling}>
+            <div className="flex flex-col justify-between w-1/3">
                 <div>
                     <GameTitle title="Trivia Game" />
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center pt-20">
                         <CoolButton href="/trivia-game/55555/game" textSize="text-3xl">
                             Start Game
                         </CoolButton>
