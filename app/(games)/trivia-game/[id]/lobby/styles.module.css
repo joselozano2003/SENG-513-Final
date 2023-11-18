@@ -1,0 +1,32 @@
+.neonBorder {
+    position: relative;
+}
+
+.neonBorder::before {
+    content: "";
+    position: absolute;
+    top: -4px; right: -4px; bottom: -4px; left: -4px;
+    border: 4px solid blue;
+    border-radius: 15px;
+    box-shadow: 0 0 10px, 0 0 20px, 0 0 30px, 0 0 40px, inset 0 0 10px, inset 0 0 20px, inset 0 0 30px, inset 0 0 40px;
+    animation: neon 10s infinite;
+}
+
+@keyframes neon {
+    0%, 100% {
+        box-shadow: 0 0 10px blue, 0 0 20px blue, 0 0 30px blue, 0 0 40px blue, inset 0 0 10px blue, inset 0 0 20px blue, inset 0 0 30px blue, inset 0 0 40px blue;
+        border-color: blue;
+    }
+    25% {
+        box-shadow: 0 0 10px purple, 0 0 20px purple, 0 0 30px purple, 0 0 40px purple, inset 0 0 10px purple, inset 0 0 20px purple, inset 0 0 30px purple, inset 0 0 40px purple;
+        border-color: purple;
+    }
+    50% {
+        box-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange, 0 0 40px orange, inset 0 0 10px orange, inset 0 0 20px orange, inset 0 0 30px orange, inset 0 0 40px orange;
+        border-color: orange;
+    }
+    75% {
+        box-shadow: 0 0 10px green, 0 0 20px green, 0 0 30px green, 0 0 40px green, inset 0 0 10px green, inset 0 0 20px green, inset 0 0 30px green, inset 0 0 40px green;
+        border-color: green;
+    }
+}

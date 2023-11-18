@@ -32,7 +32,7 @@ export default function Avatars() {
 
     return (
         <div className="flex justify-center items-center">
-            <div className="grid grid-cols-4 w-fit p-16 bg-gray-100 bg-opacity-5 rounded-lg" style={{ gap: "3rem 5rem" }}>
+            <div className="grid grid-cols-4 w-fit p-16 bg-gray-100 bg-opacity-10 rounded-lg" style={{ gap: "3rem 5rem" }}>
                 {players.map((player, index) => (
                     <Avatar key={index} player={player.name} imgSrc={player.img} />
                 ))}
