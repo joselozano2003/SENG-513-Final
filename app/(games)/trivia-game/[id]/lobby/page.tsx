@@ -20,9 +20,9 @@ export default function TriviaLobby() {
     };
 
     return (
-        <div className="flex justify-between h-screen bg-cover" style={styling}>
-            <div className="flex flex-col justify-between w-1/3">
-                <div className="ml-14">
+        <div className="flex flex-col justify-center h-screen bg-cover" style={styling}>
+            <div className="flex flex-row justify-evenly">
+                <div>
                     <GameTitle title="Trivia Game" />
                     <div className="flex flex-col items-center pt-20">
                         <CoolButton href="/trivia-game/55555/game" textSize="text-3xl">
@@ -30,17 +30,15 @@ export default function TriviaLobby() {
                         </CoolButton>
                     </div>
                 </div>
-                <div className="flex justify-start m-8">
-                    <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
-                        Back to Main Menu
-                    </CoolButton>
-                </div>
-            </div>
-            <div className="flex flex-col justify-center w-2/3">
                 <div>
                     <Avatars />
                     <JoinStuff />
                 </div>
+            </div>
+            <div className="absolute bottom-24 m-6">
+                <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
+                    Back to Main Menu
+                </CoolButton>
             </div>
         </div>
     );

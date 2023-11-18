@@ -14,7 +14,7 @@ const CoolButton: React.FC<CoolButtonProps> = ({ href, textSize, padding, hoverS
             <button
                 className={`bg-blue-500 hover:bg-blue-700 text-white ${textSize} font-bold ${
                     padding || "py-6 px-8"
-                } rounded-md transition duration-500 ease-in-out transform ${hoverScale || "hover:scale-110"}`}
+                } rounded-md transition duration-300 ease-in-out transform ${hoverScale || "hover:scale-110"}`}
                 style={{textShadow: "2px 2px 10px blue"}}
             >
                 {children}
