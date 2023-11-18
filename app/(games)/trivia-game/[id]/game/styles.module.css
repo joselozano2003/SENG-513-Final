@@ -1,0 +1,28 @@
+.progressBar {
+    animation: progressBar 15s linear forwards;
+}
+
+@keyframes progressBar {
+    0% {
+        width: 100%;
+        background-color: rgb(37 99 235);
+    }
+    74%,
+    82%,
+    90%,
+    94%,
+    98% {
+        background-color: red;
+    }
+    70%,
+    78%,
+    86%,
+    92%,
+    96% {
+        background-color: rgb(37 99 235);
+    }
+    100% {
+        width: 0%;
+        background-color: rgb(37 99 235);
+    }
+}
