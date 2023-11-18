@@ -1,12 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import triviaBackground from "public/trivia-background.jpg";
 
 //components
 import GameTitle from "../../components/GameTitle";
 import BackgroundBox from "../../components/BackgroundBox";
 import CoolButton from "../../components/CoolButton";
-import Image from "next/image";
-import triviaBackground from "public/trivia-background.jpg";
+import Avatars from "../../components/Avatars";
+import JoinStuff from "../../components/JoinStuff";
+
 export default function TriviaLobby() {
     const styling = {
         backgroundImage: `url(${triviaBackground.src})`,
@@ -14,13 +16,13 @@ export default function TriviaLobby() {
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        padding: "6rem 6vw"
+        padding: "6rem 6vw",
     };
 
     return (
         <div className="flex justify-between h-screen bg-cover" style={styling}>
             <div className="flex flex-col justify-between w-1/3">
-                <div>
+                <div className="ml-14">
                     <GameTitle title="Trivia Game" />
                     <div className="flex flex-col items-center pt-20">
                         <CoolButton href="/trivia-game/55555/game" textSize="text-3xl">
@@ -34,20 +36,10 @@ export default function TriviaLobby() {
                     </CoolButton>
                 </div>
             </div>
-            <div className="flex flex-col justify-between items-end bg-blue-200">
-                <div className="grid grid-cols-4 gap-4 bg-purple-200">
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                    <div className="w-16 h-16 bg-gray-300"></div>
-                </div>
-                <div className="bg-pink-200">
-                    <p className="text-blue-500 underline">Join the lobby</p>
-                    <p>Join code: 55555</p>
+            <div className="flex flex-col justify-center w-2/3">
+                <div>
+                    <Avatars />
+                    <JoinStuff />
                 </div>
             </div>
         </div>
