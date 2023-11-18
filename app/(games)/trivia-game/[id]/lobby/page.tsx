@@ -28,15 +28,7 @@ export default function TriviaLobby() {
 
     return (
         <div className={`h-screen bg-cover`} style={bgStyling}>
-            <div
-                className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}
-                // style={{
-                //     boxShadow:
-                //         "0 0 10px blue, 0 0 20px blue, 0 0 30px blue, 0 0 40px blue, inset 0 0 10px blue, inset 0 0 20px blue, inset 0 0 30px blue, inset 0 0 40px blue",
-                //     borderColor: "blue",
-                // }}
-
-            >
+            <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
                 <div className="flex flex-row justify-evenly">
                     <div>
                         <GameTitle title="Trivia Game" />
@@ -51,7 +43,7 @@ export default function TriviaLobby() {
                         <JoinStuff />
                     </div>
                 </div>
-                <div className="absolute bottom-0 m-6">
+                <div className="absolute bottom-0 m-10">
                     <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
                         Back to Main Menu
                     </CoolButton>
