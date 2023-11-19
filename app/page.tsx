@@ -25,6 +25,9 @@ export default function Home() {
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game-player/55555/player-choose">
                 Trivia player interface
             </Link>
+            <Link className="block hover:underline dark:text-blue-500" href="/trivia-game-player/55555/player-wait">
+                Trivia player waiting
+            </Link>
         </main>
     );
 }
