@@ -21,7 +21,7 @@ export default function Avatars() {
     // could probably rework the player names to be whatever nickname they join the game with
     const players = [
         { name: "Player 1", img: "/player-1.png" },
-        { name: "Player 2", img: "/player-2.png" },
+        { name: "Player 2", img: "/player-2-cursed.png" },
         { name: "Player 3", img: "/player-3.png" },
         { name: "Player 4", img: "/player-4.png" },
         { name: "Player 5", img: "/player-5.png" },
