@@ -21,6 +21,10 @@ export default function Home() {
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game/55555/game">
                 Trivia game gameplay
             </Link>
+            <br></br>
+            <Link className="block hover:underline dark:text-blue-500" href="/trivia-game-player/55555/player-choose">
+                Trivia player interface
+            </Link>
         </main>
     );
 }
