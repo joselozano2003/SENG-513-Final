@@ -17,7 +17,12 @@ function Avatar({ player, imgSrc }: AvatarProps) {
     );
 }
 
-export default function Avatars() {
+interface AvatarsProps {
+    gridLayout: 'columns' | 'rows';
+    bg: true | false;
+}
+
+export default function Avatars({ gridLayout, bg }: AvatarsProps) {
     // could probably rework the player names to be whatever nickname they join the game with
     const players = [
         { name: "Player 1", img: "/player-1.png" },
@@ -30,9 +35,12 @@ export default function Avatars() {
         { name: "Player 8", img: "/player-8.png" },
     ];
 
+    const gridClass = gridLayout === 'columns' ? 'grid-cols-4' : 'grid-rows-4 grid-cols-2';
+    const bgClass = bg ? 'bg-gray-100 bg-opacity-10' : '';
+
     return (
         <div className="flex justify-center items-center">
-            <div className="grid grid-cols-4 w-fit p-16 bg-gray-100 bg-opacity-10 rounded-lg" style={{ gap: "3rem 5rem" }}>
+            <div className={`grid ${gridClass} w-fit p-16 ${bgClass} rounded-lg`} style={{ gap: "3rem 5rem" }}>
                 {players.map((player, index) => (
                     <Avatar key={index} player={player.name} imgSrc={player.img} />
                 ))}

@@ -17,9 +17,8 @@
     90% {
         background-color: red;
     }
-    98%,
     100% {
         width: 0%;
-        background-color: rgb(37 99 235);
+        background-color: red;
     }
 }

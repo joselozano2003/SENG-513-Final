@@ -39,8 +39,10 @@ export default function TriviaLobby() {
                     </div>
                 </div>
                 <div>
-                    <Avatars />
-                    <JoinStuff />
+                    <Avatars gridLayout="columns" bg={true} />
+                    <div className={`w-fit mx-auto mt-12 text-xl p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
+                        <JoinStuff />
+                    </div>
                 </div>
             </div>
             <div className="absolute bottom-0 m-10">
