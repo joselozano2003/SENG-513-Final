@@ -5,7 +5,6 @@ import Avatars from "../../components/Avatars";
 import QandA from "../../components/QandA";
 import JoinStuff from "../../components/JoinStuff";
 import CoolButton from "../../components/CoolButton";
-import QuestionTimer from "../../components/QuestionTimer";
 import GameTitle from "../../components/GameTitle";
 
 export default function GamePage() {
