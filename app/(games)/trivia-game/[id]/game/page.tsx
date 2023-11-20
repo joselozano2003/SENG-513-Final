@@ -26,6 +26,9 @@ export default function GamePage() {
                 <div className="w-fit p-4 bg-gray-100 bg-opacity-10 rounded-full">
                     <JoinStuff />
                 </div>
+                <CoolButton href="/trivia-game/55555/end" textSize="text-lg" hoverScale="hover:scale-100" padding="py-2 px-2">
+                    go to end screen (temporary)
+                </CoolButton>
                 <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-2 px-2">
                     Quit
                 </CoolButton>
