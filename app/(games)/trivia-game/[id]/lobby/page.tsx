@@ -32,7 +32,7 @@ export default function TriviaLobby() {
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col justify-evenly items-center">
                     <GameTitle title="Trivia Game" />
-                    <CoolButton href="/trivia-game/55555/game" textSize="text-3xl">
+                    <CoolButton href="/trivia-game/55555/intro" textSize="text-3xl">
                         Start Game
                     </CoolButton>
                 </div>

@@ -27,7 +27,7 @@ export default function QandA() {
                 </div>
                 <div className="flex flex-col justify-center items-start w-2/5">
                     {answers.map((answer, index) => (
-                        <div key={index} className="flex items-center text-3xl mb-6 rounded-xl">
+                        <div key={index} className="flex items-center text-3xl mb-10 rounded-xl">
                             <div
                                 className="mr-5 w-9 h-11 max-w-9 max-h-11 flex items-center justify-center"
                                 style={{
