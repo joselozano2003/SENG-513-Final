@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        padding: "7vh 5vw",
+        padding: "4vh 3vw",
     };
     return (
         <html lang="en">

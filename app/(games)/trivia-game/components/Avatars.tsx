@@ -36,11 +36,13 @@ export default function Avatars({ gridLayout, bg }: AvatarsProps) {
     ];
 
     const gridClass = gridLayout === 'columns' ? 'grid-cols-4' : 'grid-rows-4 grid-cols-2';
-    const bgClass = bg ? 'bg-gray-100 bg-opacity-10' : '';
+    const bgClass = bg ? 'bg-gray-100 bg-opacity-10 p-7' : '';
+    const gapClass = bg ? 'gap-3rem 5rem' : 'gap-3rem 5rem';
+
 
     return (
         <div className="flex justify-center items-center">
-            <div className={`grid ${gridClass} w-fit p-16 ${bgClass} rounded-lg`} style={{ gap: "3rem 5rem" }}>
+            <div className={`grid ${gridClass} ${bgClass} rounded-lg`} style={{ gap: "3rem 5rem" }}>
                 {players.map((player, index) => (
                     <Avatar key={index} player={player.name} imgSrc={player.img} />
                 ))}

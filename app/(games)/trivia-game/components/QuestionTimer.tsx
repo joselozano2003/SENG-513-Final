@@ -1,5 +1,7 @@
 "use client";
 
+// maybe not needed anymore
+
 import React, { useState } from "react";
 import TempButton from "./TempButton";
 import styles from "../[id]/game/styles.module.css";
@@ -13,11 +15,12 @@ export default function ProgressBarWithButton() {
     };
 
     return (
-        <div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700">
+        <div className="w-full h-fit">
+            <p className="self-center">Time's Up!</p>
+            <div>
                 <div key={key} className={`bg-blue-600 ${pBarHeight} ${styles.progressBar}`}></div>
             </div>
-            <TempButton onClick={handleClick} />
+            {/* <TempButton onClick={handleClick} /> */}
         </div>
     );
 }

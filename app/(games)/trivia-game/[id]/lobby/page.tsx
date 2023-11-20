@@ -30,13 +30,11 @@ export default function TriviaLobby() {
         // <div className={`h-screen bg-cover`}>
         <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
             <div className="flex flex-row justify-evenly">
-                <div>
+                <div className="flex flex-col justify-evenly items-center">
                     <GameTitle title="Trivia Game" />
-                    <div className="flex flex-col items-center pt-20">
-                        <CoolButton href="/trivia-game/55555/game" textSize="text-3xl">
-                            Start Game
-                        </CoolButton>
-                    </div>
+                    <CoolButton href="/trivia-game/55555/game" textSize="text-3xl">
+                        Start Game
+                    </CoolButton>
                 </div>
                 <div>
                     <Avatars gridLayout="columns" bg={true} />
