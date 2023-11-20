@@ -18,6 +18,9 @@ export default function Home() {
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game/55555/lobby">
                 Trivia game lobby
             </Link>
+            <Link className="block hover:underline dark:text-blue-500" href="/trivia-game/55555/intro">
+                Trivia game intro
+            </Link>
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game/55555/game">
                 Trivia game gameplay
             </Link>
