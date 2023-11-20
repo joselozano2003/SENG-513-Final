@@ -8,20 +8,17 @@ import CoolButton from "../../components/CoolButton";
 import GameTitle from "../../components/GameTitle";
 
 export default function GamePage() {
-    const question = "The answer to this question is c.";
-    const answers = [""];
-
     return (
         <div className="text-white flex flex-col justify-between h-full">
-            <div className="h-0.5">
-                {/* for proper spacing of the middle section (probably a terrible solution) */}
-            </div>
+            <div className="h-0.5">{/* for proper spacing of the middle section (probably a terrible solution) */}</div>
             <div className="absolute self-center bg-gray-100 bg-opacity-10 rounded-xl p-5">
                 <GameTitle title="Trivia Game" fontSize="text-6xl" />
             </div>
             <div className="flex justify-between">
-                <div className="w-5/12 py-7 border-2 border-opacity-5 ">
-                    <Avatars gridLayout="rows" bg={false} />
+                <div className="flex justify-center w-5/12">
+                    <div className="border-2 border-opacity-5 w-fit p-5">
+                        <Avatars gridLayout="rows" bg={false} gap="game" points={true} />
+                    </div>
                 </div>
                 <QandA />
             </div>

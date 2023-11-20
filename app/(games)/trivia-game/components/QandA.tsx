@@ -15,7 +15,7 @@ export default function QandA() {
 
     return (
         <div className="flex flex-col w-full">
-            <div className="flex w-full h-full pt-5 pl-20">
+            <div className="flex w-full h-full pt-20">
                 <div className="flex flex-col justify-center items-center w-3/5">
                     <h1
                         className="text-6xl font-bold text-center w-4/5 bg-opacity-50 py-5 rounded-xl"
