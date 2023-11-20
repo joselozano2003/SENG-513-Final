@@ -9,9 +9,7 @@ interface AvatarProps {
 function Avatar({ player, imgSrc }: AvatarProps) {
     return (
         <div className="flex flex-col items-center">
-            <div className="w-16 h-16 relative">
-                <Image src={imgSrc} alt={player} layout="fill" />
-            </div>
+            <Image src={imgSrc} alt={player} width={64} height={64} />
             <p className="mt-2 text-white">{player}</p>
         </div>
     );

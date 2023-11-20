@@ -11,7 +11,7 @@ export default function page() {
                 // backgroundSize: "contain",
                 backgroundSize: "100% 100%",
                 backgroundRepeat: "no-repeat",
-                margin: "-4vh -3vw",
+                margin: "-4vh -3vw", // done to offset what layout.tsx does for the padding of each page
             }}
         >
             <div className="flex justify-center ml-80 animate-bounce">
