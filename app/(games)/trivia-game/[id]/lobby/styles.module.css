@@ -28,9 +28,9 @@
         border-color: purple;
     }
     50% {
-        box-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange, 0 0 40px orange, inset 0 0 10px orange, inset 0 0 20px orange,
-            inset 0 0 30px orange, inset 0 0 40px orange;
-        border-color: orange;
+        box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red, inset 0 0 10px red, inset 0 0 20px red,
+            inset 0 0 30px red, inset 0 0 40px red;
+        border-color: red;
     }
     75% {
         box-shadow: 0 0 10px green, 0 0 20px green, 0 0 30px green, 0 0 40px green, inset 0 0 10px green, inset 0 0 20px green,

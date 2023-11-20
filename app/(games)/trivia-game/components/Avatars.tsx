@@ -17,24 +17,43 @@ function Avatar({ player, imgSrc }: AvatarProps) {
     );
 }
 
-export default function Avatars() {
-    // could probably rework the player names to be whatever nickname they join the game with
-    const players = [
-        { name: "Player 1", img: "/player-1.png" },
-        { name: "Player 2", img: "/player-2.png" },
-        { name: "Player 3", img: "/player-3.png" },
-        { name: "Player 4", img: "/player-4.png" },
-        { name: "Player 5", img: "/player-5.png" },
-        { name: "Player 6", img: "/player-6.png" },
-        { name: "Player 7", img: "/player-7.png" },
-        { name: "Player 8", img: "/player-8.png" },
+interface Player {
+    name: string;
+    img: string;
+    points: number;
+}
+
+interface AvatarsProps {
+    gridLayout: "columns" | "rows";
+    bg: true | false;
+    gap: "lobby" | "game";
+    points: true | false;
+}
+
+export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
+    const players: Player[] = [
+        { name: "Player 1", img: "/player-1.png", points: 0 },
+        { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
+        { name: "Player 3", img: "/player-3.png", points: 0 },
+        { name: "Player 4", img: "/player-4.png", points: 0 },
+        { name: "Player 5", img: "/player-5.png", points: 0 },
+        { name: "Player 6", img: "/player-6.png", points: 0 },
+        { name: "Player 7", img: "/player-7.png", points: 0 },
+        { name: "Player 8", img: "/player-8.png", points: 0 },
     ];
+
+    const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
+    const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
+    const gapClass = gap === "lobby" ? "3rem 5rem" : "3rem 2rem";
 
     return (
         <div className="flex justify-center items-center">
-            <div className="grid grid-cols-4 w-fit p-16 bg-gray-100 bg-opacity-10 rounded-lg" style={{ gap: "3rem 5rem" }}>
+            <div className={`grid ${gridClass} ${bgClass} rounded-lg`} style={{ gap: `${gapClass}` }}>
                 {players.map((player, index) => (
-                    <Avatar key={index} player={player.name} imgSrc={player.img} />
+                    <div key={index} className="flex items-center">
+                        <Avatar player={player.name} imgSrc={player.img} />
+                        {points && <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>}
+                    </div>
                 ))}
             </div>
         </div>
