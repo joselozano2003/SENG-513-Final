@@ -12,7 +12,6 @@ interface CoolButtonProps {
 }
 
 const CoolButton: React.FC<CoolButtonProps> = ({ href, textSize, padding, hoverScale, color, children }) => {
-
     const colorClasses = color === "green" ? "bg-green-500 hover:bg-green-700" : "bg-blue-500 hover:bg-blue-700";
     const textShadowColor = color === "green" ? "darkgreen" : "blue";
 

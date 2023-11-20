@@ -52,7 +52,9 @@ export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
                 {players.map((player, index) => (
                     <div key={index} className="flex items-center">
                         <Avatar player={player.name} imgSrc={player.img} />
-                        {points && <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>}
+                        {points && (
+                            <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>
+                        )}
                     </div>
                 ))}
             </div>

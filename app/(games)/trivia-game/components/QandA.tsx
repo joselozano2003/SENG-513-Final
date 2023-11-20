@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "../[id]/game/styles.module.css";
 
 // components
 import CircularTimer from "./CircularTimer";
@@ -43,12 +42,6 @@ export default function QandA() {
                     ))}
                 </div>
             </div>
-            {/* <div className="flex flex-col items-center">
-                <p className="mb-2 text-2xl bg-green-600 bg-opacity-55 rounded-lg p-2 font-bold">Time's Up!</p>
-                <div className="w-3/4 h-fit">
-                    <div id="question-timer" className={`bg-blue-600 h-6 ${styles.progressBar}`}></div>
-                </div>
-            </div> */}
         </div>
     );
 }

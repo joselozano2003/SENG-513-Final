@@ -15,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
             <body>
-                <div className="h-screen bg-cover" style={bgStyling}>{children}</div>
+                <div className="h-screen bg-cover" style={bgStyling}>
+                    {children}
+                </div>
             </body>
         </html>
     );
