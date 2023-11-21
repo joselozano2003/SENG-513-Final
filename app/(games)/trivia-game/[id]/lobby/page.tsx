@@ -28,11 +28,11 @@ export default function TriviaLobby() {
                     </div>
                 </div>
             </div>
-            {/* <div className="absolute bottom-0 m-10">
+            <div className="absolute bottom-0 m-10">
                 <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
                     Back to Main Menu
                 </CoolButton>
-            </div> */}
+            </div>
         </div>
     );
 }

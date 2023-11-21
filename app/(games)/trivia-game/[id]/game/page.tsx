@@ -12,7 +12,7 @@ export default function GamePage() {
         <div className="text-white flex flex-col justify-between h-full">
             <div className="h-0.5">{/* for proper spacing of the middle section (probably a terrible solution) */}</div>
             <div className="absolute self-center bg-gray-100 bg-opacity-10 rounded-xl p-5">
-                <GameTitle title="Trivia Game" fontSize="text-6xl" />
+                <GameTitle title="Trivia Game" fontSize="text-6xl md:text-4xl" />
             </div>
             <div className="flex justify-between">
                 <div className="flex justify-center w-5/12">

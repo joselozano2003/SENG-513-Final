@@ -42,11 +42,11 @@ export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
 
     const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
     const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
-    const gapClass = gap === "lobby" ? "3rem 5rem" : "3rem 2rem";
+    const gapClass = gap === "lobby" ? "gap-y-4 gap-x-12 md:gap-y-4 md:gap-x-12" : "gap-4 md:gap-2";
 
     return (
         <div className="flex justify-center items-center">
-            <div className={`grid ${gridClass} ${bgClass} rounded-lg`} style={{ gap: `${gapClass}` }}>
+            <div className={`grid ${gridClass} ${bgClass} rounded-lg ${gapClass}`}>
                 {players.map((player, index) => (
                     <div key={index} className="flex items-center">
                         <Avatar player={player.name} imgSrc={player.img} />

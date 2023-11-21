@@ -5,7 +5,7 @@ interface GameTitleProps {
     fontSize?: string;
 }
 
-const GameTitle: React.FC<GameTitleProps> = ({ title, fontSize = "text-8xl" }: GameTitleProps) => {
+const GameTitle: React.FC<GameTitleProps> = ({ title, fontSize = "text-8xl md:text-6xl" }: GameTitleProps) => {
     const [firstWord, secondWord] = title.split(" ");
 
     return (
