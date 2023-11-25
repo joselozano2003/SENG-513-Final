@@ -35,6 +35,19 @@ export default function Home() {
                 Trivia player waiting
             </Link>
             <br></br>
+            <Link className="block hover:underline dark:text-blue-500" href="/prompt-game/55555/lobby">
+                Prompt game lobby
+            </Link>
+            <Link className="block hover:underline dark:text-blue-500" href="/prompt-game/55555/intro">
+                Prompt game intro
+            </Link>
+            <Link className="block hover:underline dark:text-blue-500" href="/prompt-game/55555/game">
+                Prompt game gameplay
+            </Link>
+            <Link className="block hover:underline dark:text-blue-500" href="/prompt-game/55555/end">
+                Prompt game end page
+            </Link>
+            <br></br>
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game-player">
                 Join page
             </Link>
