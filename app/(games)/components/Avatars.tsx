@@ -15,31 +15,21 @@ function Avatar({ player, imgSrc }: AvatarProps) {
     );
 }
 
-interface Player {
+export interface Player {
     name: string;
     img: string;
     points: number;
 }
 
 interface AvatarsProps {
+    players: Player[];
     gridLayout: "columns" | "rows";
     bg: true | false;
     gap: "lobby" | "game";
-    points: true | false;
+    showPoints: true | false;
 }
 
-export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
-    const players: Player[] = [
-        { name: "Player 1", img: "/player-1.png", points: 0 },
-        { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
-        { name: "Player 3", img: "/player-3.png", points: 0 },
-        { name: "Player 4", img: "/player-4.png", points: 0 },
-        { name: "Player 5", img: "/player-5.png", points: 0 },
-        { name: "Player 6", img: "/player-6.png", points: 0 },
-        { name: "Player 7", img: "/player-7.png", points: 0 },
-        { name: "Player 8", img: "/player-8.png", points: 0 },
-    ];
-
+export default function Avatars({ players, gridLayout, bg, gap, showPoints }: AvatarsProps) {
     const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
     const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
     const gapClass = gap === "lobby" ? "gap-y-4 gap-x-12 md:gap-y-4 md:gap-x-12" : "gap-4 md:gap-2";
@@ -50,7 +40,7 @@ export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
                 {players.map((player, index) => (
                     <div key={index} className="flex items-center">
                         <Avatar player={player.name} imgSrc={player.img} />
-                        {points && (
+                        {showPoints && (
                             <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>
                         )}
                     </div>
