@@ -48,6 +48,13 @@ export default function Home() {
                 Prompt game end page
             </Link>
             <br></br>
+            <Link className="block hover:underline dark:text-blue-500" href="/prompt-game-player/55555/player-choose">
+                prompt game interface
+            </Link>
+            <Link className="block hover:underline dark:text-blue-500" href="/prompt-game-player/55555/player-wait">
+                prompt game waiting
+            </Link>
+            <br></br>
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game-player">
                 Join page
             </Link>
