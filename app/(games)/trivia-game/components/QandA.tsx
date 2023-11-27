@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "../[id]/game/styles.module.css";
 
 // components
 import CircularTimer from "./CircularTimer";
@@ -15,10 +14,10 @@ export default function QandA() {
 
     return (
         <div className="flex flex-col w-full">
-            <div className="flex w-full h-full pt-20">
+            <div className="flex w-full h-full pt-20 md:pt-10">
                 <div className="flex flex-col justify-center items-center w-3/5">
                     <h1
-                        className="text-6xl font-bold text-center w-4/5 bg-opacity-50 py-5 rounded-xl"
+                        className="text-6xl md:text-4xl font-bold text-center w-4/5 bg-opacity-50 py-5 md:py-3 rounded-xl"
                         style={{ textShadow: "2px 2px 4px grey" }}
                     >
                         {question}
@@ -27,12 +26,11 @@ export default function QandA() {
                 </div>
                 <div className="flex flex-col justify-center items-start w-2/5">
                     {answers.map((answer, index) => (
-                        <div key={index} className="flex items-center text-3xl mb-10 rounded-xl">
+                        <div key={index} className="flex items-center text-3xl md:text-xl mb-10 md:mb-5 rounded-xl">
                             <div
                                 className="mr-5 w-9 h-11 max-w-9 max-h-11 flex items-center justify-center"
                                 style={{
                                     backgroundColor: boxShadows[index],
-                                    // border: `2px solid ${boxShadows[index]}`,
                                     boxShadow: `0 0 3px 4px ${boxShadows[index]}`,
                                 }}
                             >
@@ -43,12 +41,6 @@ export default function QandA() {
                     ))}
                 </div>
             </div>
-            {/* <div className="flex flex-col items-center">
-                <p className="mb-2 text-2xl bg-green-600 bg-opacity-55 rounded-lg p-2 font-bold">Time's Up!</p>
-                <div className="w-3/4 h-fit">
-                    <div id="question-timer" className={`bg-blue-600 h-6 ${styles.progressBar}`}></div>
-                </div>
-            </div> */}
         </div>
     );
 }

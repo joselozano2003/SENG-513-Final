@@ -1,14 +1,6 @@
 .neonBorder {
     position: relative;
-}
-
-.neonBorder::before {
     content: "";
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    bottom: -4px;
-    left: -4px;
     border: 10px solid blue;
     border-radius: 15px;
     box-shadow: 0 0 10px, 0 0 20px, 0 0 30px, 0 0 40px, inset 0 0 10px, inset 0 0 20px, inset 0 0 30px, inset 0 0 40px;

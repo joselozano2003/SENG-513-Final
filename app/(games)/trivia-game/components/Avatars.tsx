@@ -9,9 +9,7 @@ interface AvatarProps {
 function Avatar({ player, imgSrc }: AvatarProps) {
     return (
         <div className="flex flex-col items-center">
-            <div className="w-16 h-16 relative">
-                <Image src={imgSrc} alt={player} layout="fill" />
-            </div>
+            <Image src={imgSrc} alt={player} width={64} height={64} />
             <p className="mt-2 text-white">{player}</p>
         </div>
     );
@@ -44,15 +42,17 @@ export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
 
     const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
     const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
-    const gapClass = gap === "lobby" ? "3rem 5rem" : "3rem 2rem";
+    const gapClass = gap === "lobby" ? "gap-y-4 gap-x-12 md:gap-y-4 md:gap-x-12" : "gap-4 md:gap-2";
 
     return (
         <div className="flex justify-center items-center">
-            <div className={`grid ${gridClass} ${bgClass} rounded-lg`} style={{ gap: `${gapClass}` }}>
+            <div className={`grid ${gridClass} ${bgClass} rounded-lg ${gapClass}`}>
                 {players.map((player, index) => (
                     <div key={index} className="flex items-center">
                         <Avatar player={player.name} imgSrc={player.img} />
-                        {points && <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>}
+                        {points && (
+                            <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>
+                        )}
                     </div>
                 ))}
             </div>
