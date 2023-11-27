@@ -6,7 +6,7 @@ import CoolButton from "@/app/(games)/trivia-game/components/CoolButton";
 const CahPlayerPage = () => {
 
   return (
-    <div className="text-white flex flex-col items-center justify-center h-full bg-black">
+    <div className="text-white flex flex-col items-center justify-center h-full">
       <div className="mb-8">
         <GameTitle title="Prompt Game" fontSize="text-4xl" />
       </div>
