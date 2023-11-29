@@ -7,6 +7,8 @@ import JoinStuff from "../../components/JoinStuff";
 import CoolButton from "../../components/CoolButton";
 import GameTitle from "../../components/GameTitle";
 
+
+
 export default function GamePage() {
     return (
         <div className="text-white flex flex-col justify-between h-full">
