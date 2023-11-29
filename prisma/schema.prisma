@@ -16,3 +16,40 @@ model Test {
   content   String?
   published Boolean @default(false)
 }
+
+
+
+model triviaGame {
+  id          Int     @id @default(autoincrement())
+  state       Int
+  players     triviaGamePlayer[]
+  questions   triviaQuestion[]
+  playerLimit Int
+  admin       String
+}
+
+model triviaGamePlayer {
+  id        Int     @id @default(autoincrement())
+  game      triviaGame    @relation(fields: [gameId], references: [id])
+  gameId    Int
+  userId    String  
+  playerId  Int
+  score     Int
+}
+
+model triviaQuestion {
+  id        Int     @id @default(autoincrement())
+  question  String
+  answer    String
+  category  String
+  game      triviaGame[]
+  choices   triviaQuestionChoice[]
+}
+
+model triviaQuestionChoice {
+  id        Int     @id @default(autoincrement())
+  question  triviaQuestion    @relation(fields: [questionId], references: [id])
+  questionId    Int
+  choice    String
+  correct   Boolean
+}
