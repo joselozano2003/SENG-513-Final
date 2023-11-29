@@ -11,7 +11,16 @@ import JoinStuff from "../../components/JoinStuff";
 
 // const bo1 = Black_Ops_One({ weight: "400", subsets: ["latin"] });
 
-export default function TriviaLobby() {
+interface Props {
+    params: {
+      id: string;
+    };
+}
+
+export default function TriviaLobby({ params }: Props) {
+
+    const { id } = params
+
     return (
         <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
             <div className="flex flex-row justify-evenly">
@@ -24,7 +33,7 @@ export default function TriviaLobby() {
                 <div>
                     <Avatars gridLayout="columns" bg={true} gap="lobby" points={false} />
                     <div className={`w-fit mx-auto mt-12 text-xl p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
-                        <JoinStuff />
+                        <JoinStuff id={id}/>
                     </div>
                 </div>
             </div>

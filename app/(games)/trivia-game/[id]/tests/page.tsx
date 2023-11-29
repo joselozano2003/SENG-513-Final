@@ -77,18 +77,15 @@ export default async function Tests({ params }: Props) {
     let { data: trivia, error } = await supabase.from('trivia')
     .select('*')
         
-    let playersData = JSON.stringify(trivia![0].players);
+    // let playersData = JSON.stringify(trivia?[0].players);
 
-    const player: Player = {
-        id: 1,
-        score: 0
-    }
+
         
 
     return (
         <div className="w-[100vw] text-center text-white">
             <p className="">Hello {id}</p>
-            {playersData}
+            {/* {playersData} */}
         </div>
     )
 }
