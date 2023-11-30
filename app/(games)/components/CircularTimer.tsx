@@ -3,8 +3,8 @@ import styles from "./styles.module.css";
 
 const animationDuration = "20s";
 
-export default function CircularTimer({ size = "normal" }) {
-    const circleSize = size === "smaller" ? 8 : 10;
+export default function CircularTimer() {
+    const circleSize = 10;
 
     return (
         <div className={styles.timer}>

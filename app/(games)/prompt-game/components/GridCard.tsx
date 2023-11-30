@@ -38,7 +38,7 @@ const GridCard = ({ isPrompt, playerName, answer, avatar, points }: GridCardProp
             </div> */}
             <div className={`flex flex-col items-center justify-center text-center ${isPrompt ? "h-full" : "h-3/5"}`}>
                 {answer}
-                {isPrompt && <CircularTimer size="smaller"/>}
+                {isPrompt && <CircularTimer />}
             </div>
         </div>
     );
