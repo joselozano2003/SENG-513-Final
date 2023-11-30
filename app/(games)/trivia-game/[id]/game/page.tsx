@@ -7,9 +7,16 @@ import JoinStuff from "../../components/JoinStuff";
 import CoolButton from "../../components/CoolButton";
 import GameTitle from "../../components/GameTitle";
 
+interface Props {
+    params: {
+      id: string;
+    };
+}
 
+export default function GamePage({ params }: Props) {
 
-export default function GamePage() {
+    const { id } = params
+
     return (
         <div className="text-white flex flex-col justify-between h-full">
             <div className="h-0.5">{/* for proper spacing of the middle section (probably a terrible solution) */}</div>
@@ -26,7 +33,7 @@ export default function GamePage() {
             </div>
             <div className="flex justify-between items-end">
                 <div className="w-fit p-4 bg-gray-100 bg-opacity-10 rounded-full">
-                    <JoinStuff />
+                    <JoinStuff id={id}/>
                 </div>
                 <CoolButton href="/trivia-game/55555/end" textSize="text-lg" hoverScale="hover:scale-100" padding="py-2 px-2">
                     go to end screen (temporary)

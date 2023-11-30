@@ -1,15 +1,18 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-// import { Black_Ops_One } from "next/font/google";
+import { prisma } from "@/lib/prisma";
 
-// components
 import GameTitle from "../../components/GameTitle";
 import CoolButton from "../../components/CoolButton";
 import Avatars from "../../components/Avatars";
 import JoinStuff from "../../components/JoinStuff";
 
-// const bo1 = Black_Ops_One({ weight: "400", subsets: ["latin"] });
+import { redirect } from "next/navigation";
+
+import { cookies } from "next/headers";
+import { createClient } from '@/utils/supabase/server'
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface Props {
     params: {
@@ -17,12 +20,38 @@ interface Props {
     };
 }
 
-export default function TriviaLobby({ params }: Props) {
+export default async function TriviaLobby({ params }: Props) {
 
     const { id } = params
 
+    const cookieStore = cookies()
+
+    const supabase = createClient(cookieStore)
+
+    const supabaseAuth = createServerComponentClient({ cookies })
+
+    const { data: { session }} = await supabase.auth.getSession()
+
+    if (!session) {
+        return redirect('/unauthenticated')
+    }
+
+    const userId = session!.user.id
+
+    const game = await prisma.triviaGame.findUnique({
+        where: {
+            id: Number(id),
+            admin: userId,
+        },
+    });
+
+    if (!game) {
+        // Show game not found screen
+        redirect(`/trivia-game/${id}/not-found`)
+    }
+
     return (
-        <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
+        <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder} w-[100vw]`}>
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col justify-evenly items-center">
                     <GameTitle title="Trivia Game" />
