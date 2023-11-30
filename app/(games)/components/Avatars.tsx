@@ -18,25 +18,26 @@ function Avatar({ player, imgSrc }: AvatarProps) {
 export interface Player {
     name: string;
     img: string;
-    points: number;
+    points: number | undefined;
 }
 
 interface AvatarsProps {
     players: Player[];
-    gridLayout: "columns" | "rows";
-    bg: true | false;
+    gridLayout: string;
+    bg: "none" | "grey" | "white";
     gap: "lobby" | "game";
     showPoints: true | false;
 }
 
 export default function Avatars({ players, gridLayout, bg, gap, showPoints }: AvatarsProps) {
-    const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
-    const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
+    const [rows, columns] = gridLayout.split("x").map(Number);
+
+    const bgClass = bg === "none" ? "" : `bg-${bg}`;
     const gapClass = gap === "lobby" ? "gap-y-4 gap-x-12 md:gap-y-4 md:gap-x-12" : "gap-4 md:gap-2";
 
     return (
-        <div className="flex justify-center items-center">
-            <div className={`grid ${gridClass} ${bgClass} rounded-lg ${gapClass}`}>
+        <div className="flex justify-center items-center overflow-hidden">
+            <div className={`grid grid-cols-${columns} grid-rows-${rows} ${bgClass} rounded-lg ${gapClass}`}>
                 {players.map((player, index) => (
                     <div key={index} className="flex items-center">
                         <Avatar player={player.name} imgSrc={player.img} />

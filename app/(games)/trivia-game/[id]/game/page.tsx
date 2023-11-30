@@ -3,7 +3,7 @@ import React from "react";
 // components
 import Avatars from "../../../components/Avatars";
 import QandA from "../../components/QandA";
-import JoinStuff from "../../components/JoinStuff";
+import JoinStuff from "../../../components/JoinStuff";
 import CoolButton from "../../components/CoolButton";
 import GameTitle from "../../components/GameTitle";
 
@@ -31,7 +31,7 @@ export default function GamePage() {
             <div className="flex justify-between">
                 <div className="flex justify-center w-5/12">
                     <div className="border-2 border-opacity-5 w-fit p-5">
-                        <Avatars players={players} gridLayout="rows" bg={false} gap="game" showPoints={true} />
+                        <Avatars players={players} gridLayout="4x2" bg="none" gap="game" showPoints={true} />
                     </div>
                 </div>
                 <QandA />
