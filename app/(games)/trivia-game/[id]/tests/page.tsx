@@ -10,7 +10,6 @@ interface Props {
     };
 }
 
-
 interface Game1 {
     id: number;
     state: number;
@@ -18,8 +17,6 @@ interface Game1 {
     questions: Questions | null;
     player_limit: number | null;
 }
-
-
 
 interface Response {
     [playerId: string]: number;
@@ -50,8 +47,6 @@ interface Game {
     questions: Questions | null;
     player_limit: number | null;
 }
-
-
 
 export default async function Tests({ params }: Props) {
 

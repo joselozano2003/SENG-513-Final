@@ -1,5 +1,11 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface AvatarProps {
     player: string;
@@ -26,9 +32,12 @@ interface AvatarsProps {
     bg: true | false;
     gap: "lobby" | "game";
     points: true | false;
+    gameId: string;
+    playerData: any
+    playerCount: number;
 }
 
-export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
+export default function Avatars({ gridLayout, bg, gap, points, gameId, playerData, playerCount }: AvatarsProps) {
     const players: Player[] = [
         { name: "Player 1", img: "/player-1.png", points: 0 },
         { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
@@ -40,6 +49,23 @@ export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
         { name: "Player 8", img: "/player-8.png", points: 0 },
     ];
 
+    const supabase = createClientComponentClient()
+    const router = useRouter()
+
+    useEffect(() => {
+        const channel = supabase.channel(`realtime:triviaGamePlayer:gameId=eq.${gameId}`).on('postgres_changes', {
+            event: '*',
+            schema: 'public',
+            table: 'triviaGamePlayer'
+        }, () => {
+            router.refresh()
+        }).subscribe()
+
+        return () => {
+            supabase.removeChannel(channel)
+        }
+    }, [supabase, router])
+
     const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
     const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
     const gapClass = gap === "lobby" ? "gap-y-4 gap-x-12 md:gap-y-4 md:gap-x-12" : "gap-4 md:gap-2";
@@ -47,14 +73,14 @@ export default function Avatars({ gridLayout, bg, gap, points }: AvatarsProps) {
     return (
         <div className="flex justify-center items-center">
             <div className={`grid ${gridClass} ${bgClass} rounded-lg ${gapClass}`}>
-                {players.map((player, index) => (
-                    <div key={index} className="flex items-center">
-                        <Avatar player={player.name} imgSrc={player.img} />
-                        {points && (
-                            <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{player.points}</div>
-                        )}
-                    </div>
-                ))}
+            {Array.from({ length: playerCount }).map((_, index) => (
+                <div key={index} className="flex items-center">
+                    <Avatar player={`Player ${index + 1}`} imgSrc={players[index].img} />
+                    {points && (
+                        <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{playerData[index].points}</div>
+                    )}
+                </div>
+            ))}
             </div>
         </div>
     );

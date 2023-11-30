@@ -14,9 +14,10 @@ import { cookies } from "next/headers";
 import { createClient } from '@/utils/supabase/server'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
+
 interface Props {
     params: {
-      id: string;
+        id: string;
     };
 }
 
@@ -45,29 +46,55 @@ export default async function TriviaLobby({ params }: Props) {
         },
     });
 
+    let { data: triviaGame, error: error1 } = await supabase
+        .from('triviaGame')
+        .select('*')
+        .eq('id', id)
+        .eq('admin', userId)
+        
+
+    if (error1) {
+        console.log(error1)
+        alert(error1.message)
+    }
+    console.log(triviaGame)
+
     if (!game) {
         // Show game not found screen
         redirect(`/trivia-game/${id}/not-found`)
     }
 
+
+    let { data: playerData, error: error2, count } = await supabase
+        .from('triviaGamePlayer')
+        .select('*', { count: 'exact' })
+        .eq('gameId', id);
+
+    if (error2) {
+        console.log(error2)
+        alert(error2.message)
+    }
+    console.log(playerData, count)
+
+
     return (
-        <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder} w-[100vw]`}>
+        <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder} w-[95vw]`}>
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col justify-evenly items-center">
                     <GameTitle title="Trivia Game" />
-                    <CoolButton href="/trivia-game/55555/intro" textSize="text-3xl">
+                    <CoolButton href={`/trivia-game/${id}/intro`} textSize="text-3xl">
                         Start Game
                     </CoolButton>
                 </div>
                 <div>
-                    <Avatars gridLayout="columns" bg={true} gap="lobby" points={false} />
+                    <Avatars gridLayout="columns" bg={true} gap="lobby" points={false} gameId={id} playerData={playerData} playerCount={count!}/>
                     <div className={`w-fit mx-auto mt-12 text-xl p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
                         <JoinStuff id={id}/>
                     </div>
                 </div>
             </div>
             <div className="absolute bottom-0 m-10">
-                <CoolButton href="/trivia-game/55555/lobby" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
+                <CoolButton href={`/trivia-game/${id}/lobby`} textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
                     Back to Main Menu
                 </CoolButton>
             </div>

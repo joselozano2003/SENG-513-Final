@@ -26,7 +26,7 @@ export default function GamePage({ params }: Props) {
             <div className="flex justify-between">
                 <div className="flex justify-center w-5/12">
                     <div className="border-2 border-opacity-5 w-fit p-5">
-                        <Avatars gridLayout="rows" bg={false} gap="game" points={true} />
+                        <Avatars gridLayout="rows" bg={false} gap="game" points={true} gameId={id}/>
                     </div>
                 </div>
                 <QandA />

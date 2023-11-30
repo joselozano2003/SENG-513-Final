@@ -33,8 +33,9 @@ model triviaGamePlayer {
   game      triviaGame    @relation(fields: [gameId], references: [id])
   gameId    Int
   userId    String  
-  playerId  Int
+  playerNumber Int
   score     Int
+  playerAnswers triviaPlayerAnswer[]
 }
 
 model triviaQuestion {
@@ -44,6 +45,7 @@ model triviaQuestion {
   category  String
   game      triviaGame[]
   choices   triviaQuestionChoice[]
+  playerAnswers triviaPlayerAnswer[]
 }
 
 model triviaQuestionChoice {
@@ -52,4 +54,15 @@ model triviaQuestionChoice {
   questionId    Int
   choice    String
   correct   Boolean
+  playerAnswers triviaPlayerAnswer[]
+}
+
+model triviaPlayerAnswer {
+  id          Int     @id @default(autoincrement())
+  player      triviaGamePlayer    @relation(fields: [playerId], references: [id])
+  playerId    Int
+  question    triviaQuestion    @relation(fields: [questionId], references: [id])
+  questionId  Int
+  choice      triviaQuestionChoice    @relation(fields: [choiceId], references: [id])
+  choiceId    Int
 }
