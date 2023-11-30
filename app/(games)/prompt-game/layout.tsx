@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     // style={{ objectFit: "cover" }}
                 />
             </div>
-            <div style={{ position: "absolute", zIndex: 1 }}>{children}</div>
+            <div style={{ position: "absolute", zIndex: 1,width: "100%", height: "100%", padding: "4vh 3vw",  }}>{children}</div>
         </div>
     );
 }
