@@ -63,7 +63,7 @@ export default function Avatars({ gridLayout, bg, gap, points, gameId, playerDat
                 <div key={index} className="flex items-center">
                     <Avatar player={`Player ${index + 1}`} imgSrc={players[index].img} />
                     {points && (
-                        <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{playerData[index].points}</div>
+                        <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{playerData[index].score}</div>
                     )}
                 </div>
             ))}

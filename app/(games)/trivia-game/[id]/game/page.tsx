@@ -56,7 +56,8 @@ export default async function GamePage({ params }: Props) {
     let { data: playerData, error: error2, count } = await supabase
         .from('triviaGamePlayer')
         .select('*', { count: 'exact' })
-        .eq('gameId', id);
+        .eq('gameId', id)
+        .order('playerNumber', { ascending: true });
 
     if (error2) {
         console.log(error2)
