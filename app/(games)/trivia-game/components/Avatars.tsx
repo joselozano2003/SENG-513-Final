@@ -7,20 +7,6 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface AvatarProps {
-    player: string;
-    imgSrc: string;
-}
-
-function Avatar({ player, imgSrc }: AvatarProps) {
-    return (
-        <div className="flex flex-col items-center">
-            <Image src={imgSrc} alt={player} width={64} height={64} />
-            <p className="mt-2 text-white">{player}</p>
-        </div>
-    );
-}
-
 interface Player {
     name: string;
     img: string;
@@ -82,6 +68,22 @@ export default function Avatars({ gridLayout, bg, gap, points, gameId, playerDat
                 </div>
             ))}
             </div>
+        </div>
+    );
+}
+
+
+
+interface AvatarProps {
+    player: string;
+    imgSrc: string;
+}
+
+function Avatar({ player, imgSrc }: AvatarProps) {
+    return (
+        <div className="flex flex-col items-center">
+            <Image src={imgSrc} alt={player} width={64} height={64} />
+            <p className="mt-2 text-white">{player}</p>
         </div>
     );
 }

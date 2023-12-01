@@ -39,13 +39,6 @@ export default async function TriviaLobby({ params }: Props) {
 
     const userId = session!.user.id
 
-    const game = await prisma.triviaGame.findUnique({
-        where: {
-            id: Number(id),
-            admin: userId,
-        },
-    });
-
     let { data: triviaGame, error: error1 } = await supabase
         .from('triviaGame')
         .select('*')
@@ -58,12 +51,6 @@ export default async function TriviaLobby({ params }: Props) {
         alert(error1.message)
     }
     console.log(triviaGame)
-
-    if (!game) {
-        // Show game not found screen
-        redirect(`/trivia-game/${id}/not-found`)
-    }
-
 
     let { data: playerData, error: error2, count } = await supabase
         .from('triviaGamePlayer')

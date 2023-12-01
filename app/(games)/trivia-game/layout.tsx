@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
     return (
             <section>
-                <div className="h-screen bg-cover" style={bgStyling}>
+                <div className="h-screen bg-cover w-[100vw]" style={bgStyling}>
                     {children}
                 </div>
             </section>
