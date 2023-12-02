@@ -20,6 +20,9 @@ export default function Home() {
                 Memory game gameplay
             </Link>
             <br></br>
+            <Link className="block hover:underline dark:text-blue-500" href="/trivia-game">
+                New Trivia game
+            </Link>
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game/55555/lobby">
                 Trivia game lobby
             </Link>

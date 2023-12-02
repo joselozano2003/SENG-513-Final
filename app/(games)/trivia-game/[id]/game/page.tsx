@@ -50,7 +50,6 @@ export default async function GamePage({ params }: Props) {
         console.log(error1)
         alert(error1.message)
     }
-    console.log(triviaGame)
 
 
     let { data: playerData, error: error2, count } = await supabase
@@ -63,7 +62,6 @@ export default async function GamePage({ params }: Props) {
         console.log(error2)
         alert(error2.message)
     }
-    console.log(playerData, count)
 
     let { data: questionConnections, error: error3 } = await supabase
         .from('_triviaGameTotriviaQuestion')
@@ -75,7 +73,6 @@ export default async function GamePage({ params }: Props) {
         alert(error3.message);
     }
 
-    console.log(questionConnections);
 
     // Extract the question IDs into an array
     let questionIds = questionConnections!.map(connection => connection.B);
@@ -91,8 +88,6 @@ export default async function GamePage({ params }: Props) {
         alert(error4.message);
     }
 
-    console.log(triviaQuestions);
-
     // Extract the question IDs from the triviaQuestions array
     let triviaQuestionIds = triviaQuestions!.map(question => question.id);
 
@@ -107,14 +102,10 @@ export default async function GamePage({ params }: Props) {
         alert(error5.message);
     }
 
-    console.log(triviaQuestionChoices);
-
     let groupedChoices = triviaQuestionChoices!.reduce((grouped, choice) => {
         (grouped[choice.questionId] = grouped[choice.questionId] || []).push(choice);
         return grouped;
     }, {});
-    
-    console.log(groupedChoices);
 
     return (
         <div className="text-white flex flex-col justify-between h-full">

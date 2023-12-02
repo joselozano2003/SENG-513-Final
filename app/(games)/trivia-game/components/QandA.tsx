@@ -1,13 +1,11 @@
 "use client";
 
-import React, { use } from "react";
+import React, { useEffect} from "react";
 
-// components
 import CircularTimer from "./CircularTimer";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 interface QuandAProps {
     questions: any;
@@ -22,13 +20,11 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     const currentQuestion = gameData![0].currentQuestion
 
+    console.log(currentQuestion)
+
     const questionData = questions[currentQuestion - 1]
-    
-    console.log(questionData)
 
     const currentChoices = choices[questionData.id]
-
-    console.log(currentChoices)
 
     useEffect(() => {
         const channel = supabase.channel(`realtime:triviaGame:gameId=eq.${gameData![0].id}`).on('postgres_changes', {
@@ -45,10 +41,31 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     }, [supabase, router])
 
-    // const answersPro = 
+
+    // Commented out because it spends DB's resources. Only uncomment when testing.
+
+
+    // useEffect(() => {
+    //     const timer = setTimeout(async () => {
+    //         await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
+    //         console.log('This will run after 20 seconds');
+    //     }, 19000); // 20000 milliseconds = 20 seconds
+    
+    //     // Clear the timer when the component unmounts
+    //     return () => clearTimeout(timer);
+    // }, []);
+
+    // useEffect(() => {
+    //     const timer = setTimeout(async () => {
+    //         await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
+    //         console.log('This will run after 20 seconds');
+    //     }, 19000); // 20000 milliseconds = 20 seconds
+    
+    //     // Clear the timer when the component unmounts
+    //     return () => clearTimeout(timer);
+    // }, [currentQuestion]);
 
     // get these from the database later
-    let answers = ["Paris", "London", "Berlin", "Madrid", "Another One"];
     let answerLetters = ["A", "B", "C", "D", "E"];
     let boxShadows = ["blue", "purple", "red", "green", "orange"];
 
@@ -62,7 +79,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
                     >
                         {questionData.question}
                     </h1>
-                    <CircularTimer />
+                    <CircularTimer questionData={questionData}/>
                 </div>
                 <div className="flex flex-col justify-center items-start w-2/5">
                     {currentChoices.map((choice: any, index: number) => (
