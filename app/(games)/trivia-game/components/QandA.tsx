@@ -5,7 +5,7 @@ import React, { useEffect} from "react";
 import CircularTimer from "./CircularTimer";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 interface QuandAProps {
     questions: any;
@@ -20,6 +20,10 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     const currentQuestion = gameData![0].currentQuestion
 
+
+    if (currentQuestion > 8) {
+        redirect(`/trivia-game/${gameData![0].id}/end`)
+    }
     console.log(currentQuestion)
 
     const questionData = questions[currentQuestion - 1]
@@ -45,25 +49,27 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     // Commented out because it spends DB's resources. Only uncomment when testing.
 
 
-    // useEffect(() => {
-    //     const timer = setTimeout(async () => {
-    //         await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
-    //         console.log('This will run after 20 seconds');
-    //     }, 19000); // 20000 milliseconds = 20 seconds
+    useEffect(() => {
+        const timer = setTimeout(async () => {
+            await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
+            console.log('This will run after 20 seconds');
+        }, 19000); // 20000 milliseconds = 20 seconds
     
-    //     // Clear the timer when the component unmounts
-    //     return () => clearTimeout(timer);
-    // }, []);
+        // Clear the timer when the component unmounts
+        return () => clearTimeout(timer);
+    }, []);
 
-    // useEffect(() => {
-    //     const timer = setTimeout(async () => {
-    //         await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
-    //         console.log('This will run after 20 seconds');
-    //     }, 19000); // 20000 milliseconds = 20 seconds
+    useEffect(() => {
+        const timer = setTimeout(async () => {
+            await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
+            console.log('This will run after 20 seconds');
+        }, 19000); // 20000 milliseconds = 20 seconds
     
-    //     // Clear the timer when the component unmounts
-    //     return () => clearTimeout(timer);
-    // }, [currentQuestion]);
+        // Clear the timer when the component unmounts
+        return () => clearTimeout(timer);
+    }, [currentQuestion]);
+
+
 
     // get these from the database later
     let answerLetters = ["A", "B", "C", "D", "E"];
