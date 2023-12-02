@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 
 import CircularTimer from "./CircularTimer";
 
@@ -19,6 +19,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     const router = useRouter()
 
     const currentQuestion = gameData![0].currentQuestion
+    const [score, setScore] = useState(null)
 
 
     if (currentQuestion > 8) {
@@ -43,7 +44,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             supabase.removeChannel(channel)
         }
 
-    }, [supabase, router])
+    }, [supabase, router, gameData])
 
 
     // Commented out because it spends DB's resources. Only uncomment when testing.
@@ -57,7 +58,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     
         // Clear the timer when the component unmounts
         return () => clearTimeout(timer);
-    }, []);
+    }, [currentQuestion, gameData, supabase]);
 
     useEffect(() => {
         const timer = setTimeout(async () => {
@@ -67,9 +68,26 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     
         // Clear the timer when the component unmounts
         return () => clearTimeout(timer);
-    }, [currentQuestion]);
+    }, [currentQuestion, gameData, supabase]);
 
+    // CHECK TRIVIAPLAYERANSWER AND TRIVIAQUSTION TABLE
+    // VALIDATE ANSWERS IN QUESTION COLUMN AND UPDATE PLAYER SCORE IN PLAYER COLUMN
 
+    useEffect(() => {
+        const fetchPlayerAnswer = async () => {
+            const playerAnswers = await supabase.from('triviaPlayerAnswer').select('');
+            console.log("Player Answers:", playerAnswers.data);
+        }
+
+        const fetchQuestionAnswer = async () => {
+            const questionAnswers = await supabase.from('triviaQuestion').select('');
+            console.log("Trivia Questions:", questionAnswers.data);
+        }
+
+        fetchPlayerAnswer();
+        fetchQuestionAnswer();
+
+    }, [supabase]);
 
     // get these from the database later
     let answerLetters = ["A", "B", "C", "D", "E"];
