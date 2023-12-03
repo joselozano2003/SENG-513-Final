@@ -72,22 +72,96 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     // CHECK TRIVIAPLAYERANSWER AND TRIVIAQUSTION TABLE
     // VALIDATE ANSWERS IN QUESTION COLUMN AND UPDATE PLAYER SCORE IN PLAYER COLUMN
+    // triviaPlayerAnswer : id, playerId,QuestionId,choiceId
+    // triviaQuestion : id, question, answer, category
+    // if triviaplayeranswer.choice id == triviaquestionchoice.id and it is true, get the player id and score +=1
+   
+   useEffect(() => {
+    const fetchPlayerAnswer = async () => {
 
-    useEffect(() => {
-        const fetchPlayerAnswer = async () => {
-            const playerAnswers = await supabase.from('triviaPlayerAnswer').select('');
-            console.log("Player Answers:", playerAnswers.data);
+        try {
+            // Fetch player answers with details from triviaquestionchoice
+            const { data: playerAnswers, error: playerAnswersError } = await supabase
+                .from('triviaPlayerAnswer')
+                .select()
+                .eq('questionId', questionData.id);
+
+            // CHECK IF ERROR
+            if (playerAnswersError) {
+                console.error('Error fetching player answers:', playerAnswersError);
+                return;
+            }
+
+            // Map over player answers and fetch corresponding details from triviaQuestionChoice
+            const playerAnswersWithDetails = await Promise.all(playerAnswers.map(async (playerAnswer) => {
+                const { data: choiceDetails, error: choiceError } = await supabase
+                    .from('triviaQuestionChoice')
+                    .select()
+                    .eq('id', playerAnswer.choiceId)
+                    .single();
+
+                if (choiceError) {
+                    console.error('Error fetching choice details:', choiceError);
+                    return null;
+                }
+
+                return {
+                    ...playerAnswer,
+                    isCorrect: choiceDetails.correctness, // Add isCorrect field to the player answer
+                };
+            }));
+
+            console.log("Player Answers with Details:", playerAnswersWithDetails);
+
+            // Now you can check correctness and update score as needed
+            const correctAnswers = playerAnswersWithDetails.filter(answer => answer.isCorrect);
+            const incorrectAnswers = playerAnswersWithDetails.filter(answer => !answer.isCorrect);
+
+            console.log("Correct Answers:", correctAnswers);
+            console.log("Incorrect Answers:", incorrectAnswers);
+
+            // // Update score based on correct answers
+            // setScore(prevScore => prevScore + correctAnswers.length);
+
+        } catch (error) {
+            console.error('Error in fetchPlayerAnswer:', error);
         }
+    }
 
-        const fetchQuestionAnswer = async () => {
-            const questionAnswers = await supabase.from('triviaQuestion').select('');
-            console.log("Trivia Questions:", questionAnswers.data);
-        }
+    fetchPlayerAnswer();
+}, [questionData, supabase, setScore]);
+   
+   
+   
+    //useEffect(() => {
 
-        fetchPlayerAnswer();
-        fetchQuestionAnswer();
+        // MAYBE IT WILL CHECK HERE IF THE QUESTION CHANGES 
+        
+    //     const fetchPlayerAnswer = async () => {
+    //         const playerAnswers = await supabase
+    //         .from('triviaPlayerAnswer')
+    //         .select('*')
+    //         .eq('QuestionId', questionData.id);
+    //         console.log("Player Answers:", playerAnswers.data);
+        
+    //     }
 
-    }, [supabase]);
+    //     const fetchQuestionAnswer = async () => {
+    //         const questionAnswers = await supabase
+    //         .from('triviaQuestion')
+    //         .select('')
+    //         .eq('id',)
+    //         console.log("Trivia Questions:", questionAnswers.data);
+            
+    //     }
+        
+        
+    //     // SET SCORE HERE
+
+    //     fetchPlayerAnswer();
+    //     fetchQuestionAnswer();
+
+    // }, [supabase]);
 
     // get these from the database later
     let answerLetters = ["A", "B", "C", "D", "E"];
