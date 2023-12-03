@@ -10,18 +10,18 @@ interface JoinButtonProps {
     hoverScale?: string;
     color?: string;
     children: React.ReactNode;
-    onClick: () => void;
+    // onClick: () => void;
 }
 
 
-const JoinButton: React.FC<JoinButtonProps> = ({ href, textSize, padding, hoverScale, color, children, onClick }) => {
+const JoinButton: React.FC<JoinButtonProps> = ({ href, textSize, padding, hoverScale, color, children }) => {
     const colorClasses = color === "green" ? "bg-green-500 hover:bg-green-700" : "bg-blue-500 hover:bg-blue-700";
     const textShadowColor = color === "green" ? "darkgreen" : "blue";
 
     return (
         <Link href={href}>
             <button
-            onClick={onClick}
+            // onClick={onClick}
                 className={`${colorClasses} text-white ${textSize} font-bold ${
                     padding || "py-6 px-8"
                 } rounded-md transition duration-300 ease-in-out transform ${hoverScale || "hover:scale-110"}`}
