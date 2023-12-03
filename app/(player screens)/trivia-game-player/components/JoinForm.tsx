@@ -40,14 +40,18 @@ export default function JoinForm({ codeList }) {
 
 
 
-    // const JoinGamePage = async () => {
+    const JoinGamePage = async () => {
         
-    //     console.log("clicked!");
-    //     console.log(userName);
-    //     console.log(gameCode); 
+        // console.log("clicked!");
+        // console.log(userName);
+        // console.log(gameCode); 
 
-
-    // };
+        // assumption: everything has been error-handled once the button is pressable
+        if (codeList.includes(gameCode)) {
+            // back-end stuff, add player to trivia game database: idk how?
+           // TODO 
+        } 
+    };
 
 
     return (
