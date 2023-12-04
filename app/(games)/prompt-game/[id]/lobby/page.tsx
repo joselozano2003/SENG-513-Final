@@ -4,7 +4,13 @@ import Avatars, { Player } from "../../components/Avatars";
 import CoolButton from "../../components/CoolButton";
 import JoinStuff from "@/app/(games)/components/JoinStuff";
 
-export default function page() {
+interface Props {
+    params: {
+        id: string;
+    };
+}
+
+export default function page({ params }: Props) {
     // const players: Player[] = [
     //     { name: "Player 1", img: "/player-1.png", points: 0 },
     //     { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
@@ -16,6 +22,10 @@ export default function page() {
     //     { name: "Player 8", img: "/player-8.png", points: 0 },
     // ];
 
+    const { id } = params;
+
+    // Get player data from DB
+
     return (
         <div className="flex flex-col w-full h-full items-center pt-3">
             <GameTitle title="Prompt Game" />
@@ -23,7 +33,7 @@ export default function page() {
                 <div className="flex flex-col justify-between w-1/2">
                     <div></div>
                     <div>
-                        <Avatars gridLayout={4} bg={"none"} gap={"lobby"} showPoints={false} />
+                        {/* <Avatars gridLayout={4} bg={"none"} gap={"lobby"} showPoints={false} gameId={id}/> */}
                         <div className="flex justify-center items-center mt-16">
                             <CoolButton href="/prompt-game/55555/intro" textSize="text-3xl">
                                 Start Game
@@ -36,7 +46,7 @@ export default function page() {
                 </div>
                 <div className="flex flex-col justify-center items-center w-1/2">
                     <div className="bg-blue-200 bg-opacity-70 rounded-lg w-fit p-8">
-                        <JoinStuff />
+                        <JoinStuff id={id}/>
                     </div>
                 </div>
             </div>

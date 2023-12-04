@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 
 
-export default function JoinForm({ codeList }) {
+
+export default function JoinForm({ codeList }: any) {
     const [userName, setUserName] = useState('');
     const [gameCode, setGameCode] = useState('');
     const [isButtonVisible, setButtonVisible] = useState(false);

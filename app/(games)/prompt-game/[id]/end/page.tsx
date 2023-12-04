@@ -13,13 +13,15 @@ const players: Player[] = [
     { name: "Player 8", img: "/player-8.png", points: 0 },
 ];
 
-const WinnerAvatar = () => <Avatars gridLayout={4} bg="grey" gap="lobby" showPoints={false} />;
+// const WinnerAvatar = () => <Avatars gridLayout={4} bg="grey" gap="lobby" showPoints={false}/>;
+
+// Get the player with the highest score from the DB and map the player number to the players object
 
 const EndingScreen = () => {
     return (
         <div className={`text-white flex flex-col items-center h-full justify-center`}>
             <div className="mb-4">
-                <WinnerAvatar />
+                {/* <WinnerAvatar /> */}
             </div>
             <div className="text-2xl font-bold mb-4">Congratulations! Player 1 is the winner!</div>
             <div className="text-lg mb-4">
