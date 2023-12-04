@@ -23,7 +23,7 @@ export default function page() {
                 <div className="flex flex-col justify-between w-1/2">
                     <div></div>
                     <div>
-                        <Avatars players={players} gridLayout="2x4" bg={"none"} gap={"lobby"} showPoints={false} />
+                        <Avatars players={players} gridLayout={4} bg={"none"} gap={"lobby"} showPoints={false} />
                         <div className="flex justify-center items-center mt-16">
                             <CoolButton href="/prompt-game/55555/intro" textSize="text-3xl">
                                 Start Game

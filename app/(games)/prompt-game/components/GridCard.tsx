@@ -13,7 +13,7 @@ const GridCard = ({ isPrompt, playerName, answer, avatar, points }: GridCardProp
     const hasPlayer = playerName !== "";
 
     return (
-        <div className={`${isPrompt ? "bg-blue-500 text-xl font-semibold text-white border-blue-900" : "bg-white border-black"} p-4 border-4 rounded-md relative}
+        <div className={`${isPrompt ? "bg-blue-500 text-xl font-semibold text-white border-blue-900" : "bg-white border-black"} text-black p-4 border-4 rounded-md relative}
         ${(hasPlayer || isPrompt) ? "" : "invisible"}`}>
             <div className={`flex justify-center items-center ${isPrompt ? "" : "h-2/5"}`}>
                 <div className="flex flex-col items-center">

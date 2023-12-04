@@ -36,7 +36,7 @@ export default function TriviaLobby() {
                     </CoolButton>
                 </div>
                 <div>
-                    <Avatars players={players} gridLayout="2x4" bg="grey" gap="lobby" showPoints={false} />
+                    <Avatars players={players} gridLayout={4} bg="grey" gap="lobby" showPoints={false} />
                     <div className={`w-fit mx-auto mt-12 text-xl p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
                         <JoinStuff />
                     </div>

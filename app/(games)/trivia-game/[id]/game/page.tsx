@@ -31,7 +31,7 @@ export default function GamePage() {
             <div className="flex justify-between">
                 <div className="flex justify-center w-5/12">
                     <div className="border-2 border-opacity-5 w-fit p-5">
-                        <Avatars players={players} gridLayout="4x2" bg="none" gap="game" showPoints={true} />
+                        <Avatars players={players} gridLayout={2} bg="none" gap="game" showPoints={true} />
                     </div>
                 </div>
                 <QandA />

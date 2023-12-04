@@ -13,7 +13,7 @@ const players: Player[] = [
   { name: "Player 8", img: "/player-8.png", points: 0 },
 ];
 
-const WinnerAvatar = () => <Avatars gridLayout="2x4" bg="none" gap="lobby" showPoints={false} players={players} />;
+const WinnerAvatar = () => <Avatars gridLayout={4} bg="none" gap="lobby" showPoints={false} players={players} />;
 
 const EndingScreen = () => {
     return (
