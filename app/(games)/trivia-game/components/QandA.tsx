@@ -70,6 +70,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
         return () => clearTimeout(timer);
     }, [currentQuestion, gameData, supabase]);
 
+    // ONCE THE TIMER ABOVE ENDS, DISPLAY CORRECT ANSWER ON SCREEN! (ANOTHER QUERY)
     // CHECK TRIVIAPLAYERANSWER AND TRIVIAQUSTION TABLE
     // VALIDATE ANSWERS IN QUESTION COLUMN AND UPDATE PLAYER SCORE IN PLAYER COLUMN
     // triviaPlayerAnswer : id, playerId,QuestionId,choiceId
@@ -93,11 +94,17 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             }
 
             // Map over player answers and fetch corresponding details from triviaQuestionChoice
+            // once it has "grabbed" all the data from the above (playeranswers) from triviaPlayerAnswer, we fetch 
+            // the details from the other database table
+            // for reference :promise.all waits for all these promises to settle and returns a new promise that fulfills with the array of the results
+            // in these case its the player answers, then we declare a ne constant playerAnswersWithDetails that correspond to it
             const playerAnswersWithDetails = await Promise.all(playerAnswers.map(async (playerAnswer) => {
                 const { data: choiceDetails, error: choiceError } = await supabase
                     .from('triviaQuestionChoice')
                     .select()
+                    // check for equality if the id is equal to the playerAnswer.choiceID
                     .eq('id', playerAnswer.choiceId)
+                    .eq('correct', true)
                     .single();
 
                 if (choiceError) {
@@ -107,7 +114,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
                 return {
                     ...playerAnswer,
-                    isCorrect: choiceDetails.correctness, // Add isCorrect field to the player answer
+                    // isCorrect: , // Add isCorrect field to the player answer
                 };
             }));
 
