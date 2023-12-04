@@ -66,10 +66,16 @@ export default function Avatars({ gridLayout, bg, gap, showPoints, gameId, playe
     return (
         <div className="flex justify-center items-center">
             <div className={`grid grid-cols-${gridLayout} ${bgClass} rounded-lg ${gapClass}`}>
-                {Array.from({ length: playerCount }).map((_, index) => (
+                {Array.from({ length: 8 }).map((_, index) => (
                     <div key={index} className="flex items-center">
-                        <Avatar player={`Player ${index + 1}`} imgSrc={players[index].img} />
-                        {showPoints && <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{playerData[index].score}</div>}
+                        {playerData[index] ? (
+                            <>
+                                <Avatar player={`Player ${index + 1}`} imgSrc={players[index].img} />
+                                {showPoints && <div className="ml-4 whitespace-nowrap w-20 text-center text-2xl text-green-500 font-bold">{playerData[index].score}</div>}
+                            </>
+                        ) : (
+                            <PlaceholderAvatar />
+                        )}
                     </div>
                 ))}
             </div>
@@ -87,6 +93,15 @@ function Avatar({ player, imgSrc }: AvatarProps) {
         <div className="flex flex-col items-center">
             <Image src={imgSrc} alt={player} width={64} height={64} />
             <p className="mt-2 text-white">{player}</p>
+        </div>
+    );
+}
+
+function PlaceholderAvatar() {
+    return (
+        <div className="flex flex-col items-center">
+            <div className="w-16 h-16 md:w-16 md:h-16 border-4 border-dotted border-gray-400 rounded-full bg-transparent"></div>
+            <p className="mt-2 text-white">&nbsp;</p>
         </div>
     );
 }

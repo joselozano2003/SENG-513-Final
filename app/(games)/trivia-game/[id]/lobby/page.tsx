@@ -56,7 +56,7 @@ export default async function TriviaLobby({ params }: Props) {
         console.log(error2);
         alert(error2.message);
     }
-    console.log(playerData, count);
+    console.log(`Player data: ${playerData}, count: ${count}`);
 
     const players: Player[] = [
         { name: "Player 1", img: "/player-1.png", points: 0 },
@@ -86,7 +86,7 @@ export default async function TriviaLobby({ params }: Props) {
                 </div>
             </div>
             <div className="absolute bottom-0 m-10">
-                <CoolButton href={`/trivia-game/${id}/lobby`} textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
+                <CoolButton href={`/`} textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
                     Back to Main Menu
                 </CoolButton>
             </div>
