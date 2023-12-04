@@ -3,7 +3,7 @@
 import React from "react";
 
 // components
-import CircularTimer from "./CircularTimer";
+import CircularTimer from "../../components/CircularTimer";
 
 export default function QandA() {
     // get these from the database later
@@ -16,10 +16,7 @@ export default function QandA() {
         <div className="flex flex-col w-full">
             <div className="flex w-full h-full pt-20 md:pt-10">
                 <div className="flex flex-col justify-center items-center w-3/5">
-                    <h1
-                        className="text-6xl md:text-4xl font-bold text-center w-4/5 bg-opacity-50 py-5 md:py-3 rounded-xl"
-                        style={{ textShadow: "2px 2px 4px grey" }}
-                    >
+                    <h1 className="text-6xl md:text-4xl font-bold text-center w-4/5 bg-opacity-50 py-5 md:py-3 rounded-xl" style={{ textShadow: "2px 2px 4px grey" }}>
                         {question}
                     </h1>
                     <CircularTimer />
