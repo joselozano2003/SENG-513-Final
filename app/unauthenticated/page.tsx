@@ -15,6 +15,7 @@ export default async function UnAuthenticated() {
         <div>
             <h1>Unauthenticated</h1>
             <p>You have to log in to play a game</p>
+
         </div>
     )
 }

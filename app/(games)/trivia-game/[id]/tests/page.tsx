@@ -10,14 +10,6 @@ interface Props {
     };
 }
 
-interface Game1 {
-    id: number;
-    state: number;
-    players: Players | null;
-    questions: Questions | null;
-    player_limit: number | null;
-}
-
 interface Response {
     [playerId: string]: number;
 }
@@ -48,6 +40,8 @@ interface Game {
     player_limit: number | null;
 }
 
+
+
 export default async function Tests({ params }: Props) {
 
     const { id } = params
@@ -60,27 +54,26 @@ export default async function Tests({ params }: Props) {
 
     const { data: { session }} = await supabase.auth.getSession()
 
-    const test = session?.user?.id
-
-    // console.log(test)
-
-    if (!session) {
-        return redirect('/unauthenticated')
-    }
-
    
     let { data: trivia, error } = await supabase.from('trivia')
     .select('*')
         
-    // let playersData = JSON.stringify(trivia?[0].players);
+    let playersData = JSON.stringify(trivia![0].players);
 
+    console.log(trivia)
 
+    console.log(playersData)
+
+    const player: Player = {
+        id: 1,
+        score: 0
+    }
         
 
     return (
-        <div className="w-[100vw] text-center text-white">
+        <div className="w-[100vw] text-center">
             <p className="">Hello {id}</p>
-            {/* {playersData} */}
+            {playersData}
         </div>
     )
 }
