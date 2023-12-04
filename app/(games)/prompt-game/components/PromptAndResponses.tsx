@@ -1,6 +1,6 @@
 import React from "react";
 import GridCard from "./GridCard";
-import { Player } from "@/app/(games)/components/Avatars";
+import { Player } from "@/app/(games)/components/Avatars (deprecating)";
 
 interface PlayerResponse {
     playerName: string;

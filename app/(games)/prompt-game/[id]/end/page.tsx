@@ -1,19 +1,19 @@
 import React from "react";
 import CoolButton from "@/app/(games)/trivia-game/components/CoolButton";
-import Avatars, { Player } from "@/app/(games)/components/Avatars";
+import Avatars, { Player } from "../../components/Avatars";
 
 const players: Player[] = [
-  { name: "Player 1", img: "/player-1.png", points: 0 },
-  { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
-  { name: "Player 3", img: "/player-3.png", points: 0 },
-  { name: "Player 4", img: "/player-4.png", points: 0 },
-  { name: "Player 5", img: "/player-5.png", points: 0 },
-  { name: "Player 6", img: "/player-6.png", points: 0 },
-  { name: "Player 7", img: "/player-7.png", points: 0 },
-  { name: "Player 8", img: "/player-8.png", points: 0 },
+    { name: "Player 1", img: "/player-1.png", points: 0 },
+    { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
+    { name: "Player 3", img: "/player-3.png", points: 0 },
+    { name: "Player 4", img: "/player-4.png", points: 0 },
+    { name: "Player 5", img: "/player-5.png", points: 0 },
+    { name: "Player 6", img: "/player-6.png", points: 0 },
+    { name: "Player 7", img: "/player-7.png", points: 0 },
+    { name: "Player 8", img: "/player-8.png", points: 0 },
 ];
 
-const WinnerAvatar = () => <Avatars gridLayout={4} bg="none" gap="lobby" showPoints={false} players={players} />;
+const WinnerAvatar = () => <Avatars gridLayout={4} bg="grey" gap="lobby" showPoints={false} />;
 
 const EndingScreen = () => {
     return (

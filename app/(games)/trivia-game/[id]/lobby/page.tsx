@@ -5,18 +5,17 @@ import { prisma } from "@/lib/prisma";
 
 import GameTitle from "../../components/GameTitle";
 import CoolButton from "../../components/CoolButton";
-import Avatars from "../../../components/Avatars";
+import Avatars from "../../components/Avatars";
 import JoinStuff from "../../../components/JoinStuff";
 
 // interfaces
-import { Player } from "../../../components/Avatars";
+import { Player } from "../../components/Avatars";
 
 import { redirect } from "next/navigation";
 
 import { cookies } from "next/headers";
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from "@/utils/supabase/server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
 
 interface Props {
     params: {
@@ -25,46 +24,39 @@ interface Props {
 }
 
 export default async function TriviaLobby({ params }: Props) {
+    const { id } = params;
 
-    const { id } = params
+    const cookieStore = cookies();
 
-    const cookieStore = cookies()
+    const supabase = createClient(cookieStore);
 
-    const supabase = createClient(cookieStore)
+    const supabaseAuth = createServerComponentClient({ cookies });
 
-    const supabaseAuth = createServerComponentClient({ cookies })
-
-    const { data: { session }} = await supabase.auth.getSession()
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
 
     if (!session) {
-        return redirect('/unauthenticated')
+        return redirect("/unauthenticated");
     }
 
-    const userId = session!.user.id
+    const userId = session!.user.id;
 
-    let { data: triviaGame, error: error1 } = await supabase
-        .from('triviaGame')
-        .select('*')
-        .eq('id', id)
-        .eq('admin', userId)
-        
+    let { data: triviaGame, error: error1 } = await supabase.from("triviaGame").select("*").eq("id", id).eq("admin", userId);
 
     if (error1) {
-        console.log(error1)
-        alert(error1.message)
+        console.log(error1);
+        alert(error1.message);
     }
-    console.log(triviaGame)
+    console.log(triviaGame);
 
-    let { data: playerData, error: error2, count } = await supabase
-        .from('triviaGamePlayer')
-        .select('*', { count: 'exact' })
-        .eq('gameId', id);
+    let { data: playerData, error: error2, count } = await supabase.from("triviaGamePlayer").select("*", { count: "exact" }).eq("gameId", id);
 
     if (error2) {
-        console.log(error2)
-        alert(error2.message)
+        console.log(error2);
+        alert(error2.message);
     }
-    console.log(playerData, count)
+    console.log(playerData, count);
 
     const players: Player[] = [
         { name: "Player 1", img: "/player-1.png", points: 0 },
@@ -87,9 +79,9 @@ export default async function TriviaLobby({ params }: Props) {
                     </CoolButton>
                 </div>
                 <div>
-                    <Avatars players={players} gridLayout={4} bg="grey" gap="lobby" showPoints={false} gameId={id} playerData={playerData} playerCount={count!}/>
+                    <Avatars gridLayout={4} bg="grey" gap="lobby" showPoints={false} gameId={id} playerData={playerData} playerCount={count!} />
                     <div className={`w-fit mx-auto mt-12 text-xl p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
-                        <JoinStuff id={id}/>
+                        <JoinStuff id={id} />
                     </div>
                 </div>
             </div>

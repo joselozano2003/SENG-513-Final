@@ -2,7 +2,7 @@ import React from "react";
 import GameTitle from "../../components/GameTitle";
 import CoolButton from "../../components/CoolButton";
 import PromptAndResponses from "../../components/PromptAndResponses";
-import { Player } from "@/app/(games)/components/Avatars";
+import { Player } from "../../components/Avatars";
 
 export default function page() {
     const players: Player[] = [
