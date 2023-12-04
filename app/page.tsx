@@ -1,9 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { cookies } from 'next/headers'
+import AuthButton from "@/components/AuthButton";
+
+
 export default function Home() {
+
     return (
-        <main className="p-5">
+        <div className="flex-1 w-full flex flex-col items-center">
             <h1>Hello</h1>
             <br></br>
             {/* 55555 is just a placeholder for a game session ID */}
@@ -58,6 +63,6 @@ export default function Home() {
             <Link className="block hover:underline dark:text-blue-500" href="/trivia-game-player">
                 Join page
             </Link>
-        </main>
+        </div>
     );
 }
