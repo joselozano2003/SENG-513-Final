@@ -47,6 +47,12 @@ export default async function GamePage({ params }: Props) {
         alert(error1.message);
     }
 
+    const currentQuestion = triviaGame![0].currentQuestion
+
+    if (currentQuestion > 8) {
+        redirect(`/trivia-game/${triviaGame![0].id}/end`)
+    }
+
     let {
         data: playerData,
         error: error2,

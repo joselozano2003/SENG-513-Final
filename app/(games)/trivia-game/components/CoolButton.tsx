@@ -84,3 +84,57 @@ export const TestButton: React.FC<TestButtonProps> = ({ textSize, padding, hover
         </button>
     );
 };
+
+interface StartButtonProps {
+    textSize: string;
+    padding?: string;
+    hoverScale?: string;
+    color?: string;
+    children: React.ReactNode;
+    gameId: string;
+}
+
+export const StartButton: React.FC<StartButtonProps> = ({ textSize, padding, hoverScale, color, children, gameId }) => {
+
+    const handleClick = async () => {
+        console.log("Clicked!");
+
+        const res = await fetch("/api/trivia/initiate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                gameId: gameId,
+            }),
+        });
+        
+        const data = await res.json();
+
+        console.log(data);
+
+        if (!res.ok) {
+            console.log("Error creating game");
+            console.log(data);
+            return;
+        }
+        else {
+            window.location.href = `/trivia-game/${gameId}/game`;
+        }
+    }
+
+    const colorClasses = color === "green" ? "bg-green-500 hover:bg-green-700" : "bg-blue-500 hover:bg-blue-700";
+    const textShadowColor = color === "green" ? "darkgreen" : "blue";
+
+    return (
+        <button
+            onClick={handleClick}
+            className={`${colorClasses} text-white ${textSize} font-bold ${
+                padding || "py-6 px-8"
+            } rounded-md transition duration-300 ease-in-out transform ${hoverScale || "hover:scale-110"}`}
+            style={{ textShadow: `2px 2px 10px ${textShadowColor}` }}>
+            {children}
+        </button>
+
+    );
+};

@@ -18,12 +18,9 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     const supabase = createClientComponentClient()
     const router = useRouter()
 
+
+    console.log(gameData)
     const currentQuestion = gameData![0].currentQuestion
-
-
-    if (currentQuestion > 8) {
-        redirect(`/trivia-game/${gameData![0].id}/end`)
-    }
 
     const questionData = questions[currentQuestion - 1]
 
@@ -50,21 +47,6 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     useEffect(() => {
         const timer = setTimeout(async () => {
-            // const { data: playerAnswers, error: playerAnswersError } = await supabase
-            //     .from('triviaPlayerAnswer')
-            //     .select()
-            //     .eq('questionId', questionData.id)
-            //     .eq("gameId", gameData![0].id)
-            //     .eq("gameRound", gameData![0].currentQuestion);
-
-            // // CHECK IF ERROR
-            // if (playerAnswersError) {
-            //     console.error('Error fetching player answers:', playerAnswersError);
-            //     return;
-            // }
-
-            // console.log(playerAnswers)
-
 
             await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
         }, 19000); // 20000 milliseconds = 20 seconds
