@@ -20,7 +20,6 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     const router = useRouter()
 
     const currentQuestion = gameData![0].currentQuestion
-    const [score, setScore] = useState(null)
 
 
     if (currentQuestion > 8) {
