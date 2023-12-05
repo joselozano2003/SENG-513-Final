@@ -37,15 +37,11 @@ async function WaitingPage({ params }: Props) {
 
 	let { data: triviaPlayer, error: error2 } = await supabase.from("triviaGamePlayer").select("*").eq("gameId", id).eq("userId", userId)
 
-    console.log(triviaPlayer)
-
     if (triviaPlayer!.length == 0) {
         redirect(`/`) // TODO: Not in game page
     }
 
 	let { data: triviaGame, error: error1 } = await supabase.from("triviaGame").select("*").eq("id", id)
-
-	console.log(triviaGame)
 
 	const playerNumber = triviaPlayer![0].playerNumber;
 

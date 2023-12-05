@@ -24,8 +24,10 @@ model triviaGame {
   state       Int
   players     triviaGamePlayer[]
   questions   triviaQuestion[]
+  answers     triviaPlayerAnswer[]
   playerLimit Int
   admin       String
+  currentQuestion BigInt
 }
 
 model triviaGamePlayer {
@@ -60,6 +62,8 @@ model triviaQuestionChoice {
 model triviaPlayerAnswer {
   id          Int     @id @default(autoincrement())
   player      triviaGamePlayer    @relation(fields: [playerId], references: [id])
+  gameId      Int
+  game        triviaGame    @relation(fields: [gameId], references: [id])
   playerId    Int
   question    triviaQuestion    @relation(fields: [questionId], references: [id])
   questionId  Int
