@@ -72,11 +72,14 @@ export default async function TriviaLobby({ params }: Props) {
         <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col justify-evenly items-center">
-                    <>
-                        <Image src={"/white-question-mark.png"} alt={"question mark"} width={20} height={15}/>
+                    <div className="flex flex-row">
+                        <div className="h-3/5 w-12 relative self-center mr-14">
+                            <Image src={"/white-question-mark.png"} alt={"question mark"} fill className={`${styles.rotateRight}`} />
+                        </div>
                         <GameTitle title="Trivia Game" />
-                        <Image src={"/white-question-mark.png"} alt={"question mark"} width={20} height={15}/>
-                    </>
+                        <div className="h-3/5 w-12 relative self-center ml-14">
+                            <Image src={"/white-question-mark.png"} alt={"question mark"} fill className={`${styles.rotateLeft}`} />
+                        </div>                    </div>
                     <CoolButton href={`/trivia-game/${id}/intro`} textSize="text-3xl">
                         Start Game
                     </CoolButton>
