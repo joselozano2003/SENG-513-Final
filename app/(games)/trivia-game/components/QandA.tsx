@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState} from "react";
+import React, { useEffect} from "react";
 
-// components
 import CircularTimer from "../../components/CircularTimer";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -44,7 +43,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             supabase.removeChannel(channel)
         }
 
-    }, [supabase, router, gameData])
+    }, [supabase, router])
 
 
     // Commented out because it spends DB's resources. Only uncomment when testing.
@@ -58,7 +57,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     
         // Clear the timer when the component unmounts
         return () => clearTimeout(timer);
-    }, [currentQuestion, gameData, supabase]);
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(async () => {
@@ -68,26 +67,9 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     
         // Clear the timer when the component unmounts
         return () => clearTimeout(timer);
-    }, [currentQuestion, gameData, supabase]);
+    }, [currentQuestion]);
 
-    // CHECK TRIVIAPLAYERANSWER AND TRIVIAQUSTION TABLE
-    // VALIDATE ANSWERS IN QUESTION COLUMN AND UPDATE PLAYER SCORE IN PLAYER COLUMN
 
-    useEffect(() => {
-        const fetchPlayerAnswer = async () => {
-            const playerAnswers = await supabase.from('triviaPlayerAnswer').select('');
-            console.log("Player Answers:", playerAnswers.data);
-        }
-
-        const fetchQuestionAnswer = async () => {
-            const questionAnswers = await supabase.from('triviaQuestion').select('');
-            console.log("Trivia Questions:", questionAnswers.data);
-        }
-
-        fetchPlayerAnswer();
-        fetchQuestionAnswer();
-
-    }, [supabase]);
 
     // get these from the database later
     let answerLetters = ["A", "B", "C", "D", "E"];

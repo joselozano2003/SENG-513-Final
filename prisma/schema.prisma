@@ -10,15 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-}
-
-
-
 model triviaGame {
   id          Int     @id @default(autoincrement())
   state       Int
@@ -69,4 +60,5 @@ model triviaPlayerAnswer {
   questionId  Int
   choice      triviaQuestionChoice    @relation(fields: [choiceId], references: [id])
   choiceId    Int
+  gameRound   Int
 }
