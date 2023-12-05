@@ -1,9 +1,11 @@
 .neonBorder {
+    --neon-border-size: 10px;
     position: relative;
     content: "";
-    border: 10px solid blue;
-    border-radius: 15px;
-    box-shadow: 0 0 10px, 0 0 20px, 0 0 30px, 0 0 40px, inset 0 0 10px, inset 0 0 20px, inset 0 0 30px, inset 0 0 40px;
+    border: var(--neon-border-size) solid blue;
+    border-radius: 30px;
+    box-shadow: 0 0 var(--neon-border-size), 0 0 calc(2 * var(--neon-border-size)), 0 0 calc(3 * var(--neon-border-size)), 0 0 calc(4 * var(--neon-border-size)), 
+                inset 0 0 var(--neon-border-size), inset 0 0 calc(2 * var(--neon-border-size)), inset 0 0 calc(3 * var(--neon-border-size)), inset 0 0 calc(4 * var(--neon-border-size));
     animation: neon 20s infinite;
 }
 
@@ -29,19 +31,19 @@
 }
 
 @keyframes rotateLeft {
-    0%, 49% {
+    0%, 50% {
         transform: rotate(-45deg);
     }
-    50%, 100% {
+    51%, 100% {
         transform: rotate(45deg);
     }
 }
 
 @keyframes rotateRight {
-    0%, 49% {
+    0%, 50% {
         transform: rotate(45deg);
     }
-    50%, 100% {
+    51%, 100% {
         transform: rotate(-45deg);
     }
 }
