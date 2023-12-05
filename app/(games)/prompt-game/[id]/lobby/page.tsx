@@ -40,13 +40,13 @@ export default function page({ params }: Props) {
                             </CoolButton>
                         </div>
                     </div>
-                    <CoolButton href="/prompt-game/55555/lobby" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
+                    <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
                         Back to Main Menu
                     </CoolButton>
                 </div>
                 <div className="flex flex-col justify-center items-center w-1/2">
                     <div className="bg-blue-200 bg-opacity-70 rounded-lg w-fit p-8">
-                        <JoinStuff id={id}/>
+                        <JoinStuff id={id} />
                     </div>
                 </div>
             </div>

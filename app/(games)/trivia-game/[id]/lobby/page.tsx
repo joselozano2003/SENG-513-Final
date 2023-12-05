@@ -70,7 +70,7 @@ export default async function TriviaLobby({ params }: Props) {
     ];
 
     return (
-        <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder} w-[95vw]`}>
+        <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col justify-evenly items-center">
                     <GameTitle title="Trivia Game" />

@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 width: "100vw",
                 height: "100vh",
                 // padding: "4vh 3vw",
+                maxWidth: "100%",
                 overflow: "hidden",
             }}
         >

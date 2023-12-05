@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 position: "relative",
                 width: "100vw",
                 height: "100vh",
+                maxWidth: "100%",
             }}
         >
             <div>
