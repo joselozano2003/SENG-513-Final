@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const trivia = await prisma.triviaGame.create({
         data: {
             state: 1,
-            playerLimit: data.playerLimit,
+            playerLimit: 8,
             admin: data.admin,
         },
     });
