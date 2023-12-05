@@ -85,87 +85,140 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     const fetchPlayerAnswer = async () => {
 
         try {
+            
             // Fetch player answers with details from triviaquestionchoice
             const { data: playerAnswers, error: playerAnswersError } = await supabase
                 .from('triviaPlayerAnswer')
                 .select()
                 .eq('questionId', questionData.id)
-                .eq("gameId", gameData![0].id);
+                .eq("gameId", gameData![0].id)
+                .eq("gameRound", gameData![0].currentQuestion);
 
             // CHECK IF ERROR
             if (playerAnswersError) {
                 console.error('Error fetching player answers:', playerAnswersError);
                 return;
             }
+            // When round ends,
+                // Get responses from that question
+                    // SELECT from <table> WHERE gameId = id and round=currentRound
+                // For each player, check their choices and if correct add point
+            // for (const answer of playerAnswers) {
+            //     const { playerId, choiceId } = answer;
+            //     // SELECT from <table> WHERE gameId = id and round=currentRound
+            //     const {data: correctAnswer, error: correctAnswerError } = await supabase
+            //         .from('triviaQuestionChoice')
+            //         .select()
+            //         .eq("gameId", gameData![0].id)
+            //         .eq("gameRound", gameData![0].currentQuestion);
+            //         console.log("correctanswer not rly :", correctAnswer);
 
-            console.log(playerAnswers)
+            // }
 
-
+            // // if correct {
+            //     const { data : triviaPlayerGameScore, error:riviaPlayerGameScoreError } = await supabase
+            //     .from('triviaGamePlayer')
+            //     .update({score: score + 20})
+            //     .eq("id", id);
+            // }
             
 
+            console.log("Player Answers with :", playerAnswers);
+            console.log("question data:", questionData);
+            console.log("currentQuestion:", currentQuestion);
+            // Map over player answers and fetch corresponding details from triviaQuestionChoice
+            // once it has "grabbed" all the data from the above (playeranswers) from triviaPlayerAnswer, we fetch 
+            // the details from the other database table
+            // for reference :promise.all waits for all these promises to settle and returns a new promise that fulfills with the array of the results
+            // in these case its the player answers, then we declare a ne constant playerAnswersWithDetails that correspond to it
+            const playerAnswersWithDetails = await Promise.all(playerAnswers.map(async (playerAnswer) => {
+                const { data: choiceDetails, error: choiceError } = await supabase
+                    .from('triviaQuestionChoice')
+                    .select('')
+                    // check for equality if the id is equal to the playerAnswer.choiceID
+                    .eq('id', playerAnswer.choiceId)
+                    .eq('correct', true);
+                    // .single(); // NOT SURE IF WE NEED THIS LINE
+                    console.log("NORMAL Choice Details:", choiceDetails, playerAnswer);
+                    
+                    // UPDATING THE SCORE HERE
+                    if (choiceDetails) {
+                        const { data: playerData, error: playerError } = await supabase
+                        .from('triviaGamePlayer')
+                        .select('score')
+                        .eq('gameId', gameData![0].id)
+
+                        if (playerError) {
+                            console.error('Error fetching player data:', playerError);
+                            return null;
+                        }
+
+                        const updatedScore = playerData[0].score + 20; // Assuming you get an array of data
+
+                        const { data: updatedPlayerData, error: updatedPlayerDataError } = await supabase
+                        .from('triviaGamePlayer')
+                        .update({ score: updatedScore })
+                        .eq('gameId', gameData![0].id)
 
 
-            // console.log("Player Answers with :", playerAnswers);
+                        console.log("TRYING TO UPDATE PLAYER DATA INFO FROM TRIVIAGAMEPLAYER", playerData);
+                        console.log("player data test:", playerData);
+                        console.log("trying to check if above is true,it will only print correct Choice Details:", choiceDetails);
+                        console.log("here should be where im trying to update the score");
+                        console.log("Updated player score:", updatedPlayerData[0].score);
+                        // const addedScore = 20;
+                        
+                        // const newScore = currentScore + addedScore; 
+                        // const { data : scoreDetails, error: scoreError } = await supabase 
+                        // .from('triviaGamePlayer')
+                        // .eq('id', playerAnswers.playerId);
 
-            // // Map over player answers and fetch corresponding details from triviaQuestionChoice
-            // // once it has "grabbed" all the data from the above (playeranswers) from triviaPlayerAnswer, we fetch 
-            // // the details from the other database table
-            // // for reference :promise.all waits for all these promises to settle and returns a new promise that fulfills with the array of the results
-            // // in these case its the player answers, then we declare a ne constant playerAnswersWithDetails that correspond to it
-            // const playerAnswersWithDetails = await Promise.all(playerAnswers.map(async (playerAnswer) => {
-            //     const { data: choiceDetails, error: choiceError } = await supabase
-            //         .from('triviaQuestionChoice')
-            //         .select('correct')
-            //         // check for equality if the id is equal to the playerAnswer.choiceID
-            //         .eq('id', playerAnswer.choiceId)
-            //         .eq('correct', true);
-            //         // .single(); // NOT SURE IF WE NEED THIS LINE
-            //         console.log("Choice Details:", choiceDetails);
-                
-            //         // IF THERE IS AN ERROR FETCHING ONLY THE CORRECT ANSWER
-            //         if (choiceError) {
-            //         console.error('Error fetching choice details:', choiceError);
-            //         return null;
-            //     }
-            //     // const isCorrect = choiceDetails.correct;  // Assuming the 'correct' column indicates whether the answer is correct
+                    }
+                      
+                    // IF THERE IS AN ERROR FETCHING ONLY THE CORRECT ANSWER
+                    if (choiceError) {
+                    console.error('Error fetching choice details:', choiceError);
+                    return null;
+                }
+                // const isCorrect = choiceDetails.correct;  // Assuming the 'correct' column indicates whether the answer is correct
 
-            //     // Update the player's score if the answer is correct
-            //     if (choiceDetails) {
-            //         // Fetch the current player's score from triviaGamePlayer
-            //         const { data: playerData, error: playerError } = await supabase
-            //             .from('triviaGamePlayer')
-            //             .select('score')
-            //             .eq('userId', playerAnswer.playerId)
-            //             //.eq('gameId', gameData![0].id)
-            //             .single();
+                // Update the player's score if the answer is correct
+                // if (choiceDetails) {
+                //     // Fetch the current player's score from triviaGamePlayer
+                //     const { data: playerData, error: playerError } = await supabase
+                //         .from('triviaGamePlayer')
+                //         .select('score')
+                //         .eq('userId', playerAnswer.playerId)
+                //         .eq('gameId', gameData![0].id)
+                //         .single();
     
-            //         if (playerError) {
-            //             console.error('Error fetching player data:', playerError);
-            //             return null;
-            //         }
+                //     // if (playerError) {
+                //     //     console.error('Error fetching player data:', playerError);
+                //     //     return null;
+                //     // }
     
-            //         // Update the player's score in triviaGamePlayer
-            //         const updatedScore = playerData.score + 1;
+                //     // Update the player's score in triviaGamePlayer
+                //     const updatedScore = playerData.score + 1;
     
-            //         const { data: updatedPlayer, error: updateError } = await supabase
-            //             .from('triviaGamePlayer')
-            //             .update({ score: updatedScore })
-            //             .eq('userId', playerAnswer.playerId)
-            //             .eq('gameId', gameData![0].id)
-            //             .single();
+                //     const { data: updatedPlayer, error: updateError } = await supabase
+                //         .from('triviaGamePlayer')
+                //         .update({ score: updatedScore })
+                //         .eq('userId', playerAnswer.playerId)
+                //         .eq('gameId', gameData![0].id)
+                //         .single();
     
-            //         if (updateError) {
-            //             console.error('Error updating player score:', updateError);
-            //             return null;
-            //         }
+                //     if (updateError) {
+                //         console.error('Error updating player score:', updateError);
+                //         return null;
+                //     }
     
-            //         console.log('Player score updated:', updatedPlayer);
-            //     }
-            //     return {
-            //         ...playerAnswer,
-            //         // isCorrect: , // Add isCorrect field to the player answer
-            //     };
-            // }));
+                //     console.log('Player score updated:', updatedPlayer);
+                // }
+                return {
+                    ...playerAnswer,
+                    // isCorrect: , // Add isCorrect field to the player answer
+                };
+            }));
 
             // console.log("Player Answers with Details:", playerAnswersWithDetails);
             
@@ -186,40 +239,9 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     }
 
     fetchPlayerAnswer();
-}, [questionData, supabase, setScore, gameData]);
+}, [questionData, supabase, setScore, gameData, currentQuestion]);
    
    
-   
-    //useEffect(() => {
-
-        // MAYBE IT WILL CHECK HERE IF THE QUESTION CHANGES 
-        
-    //     const fetchPlayerAnswer = async () => {
-    //         const playerAnswers = await supabase
-    //         .from('triviaPlayerAnswer')
-    //         .select('*')
-    //         .eq('QuestionId', questionData.id);
-    //         console.log("Player Answers:", playerAnswers.data);
-        
-    //     }
-
-    //     const fetchQuestionAnswer = async () => {
-    //         const questionAnswers = await supabase
-    //         .from('triviaQuestion')
-    //         .select('')
-    //         .eq('id',)
-    //         console.log("Trivia Questions:", questionAnswers.data);
-            
-    //     }
-        
-        
-    //     // SET SCORE HERE
-
-    //     fetchPlayerAnswer();
-    //     fetchQuestionAnswer();
-
-    // }, [supabase]);
-
     // get these from the database later
     let answerLetters = ["A", "B", "C", "D", "E"];
     let boxShadows = ["blue", "purple", "red", "green", "orange"];
