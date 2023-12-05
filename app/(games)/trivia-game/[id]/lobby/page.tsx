@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 
 import GameTitle from "../../components/GameTitle";
-import CoolButton from "../../components/CoolButton";
+import CoolButton, {StartButton} from "../../components/CoolButton";
 import Avatars from "../../components/Avatars";
 import JoinStuff from "../../../components/JoinStuff";
 
@@ -15,6 +15,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 
 interface Props {
     params: {
@@ -48,6 +49,7 @@ export default async function TriviaLobby({ params }: Props) {
         alert(error1.message);
     }
     console.log(triviaGame);
+    console.log(triviaGame![0].id);
 
     let { data: playerData, error: error2, count } = await supabase.from("triviaGamePlayer").select("*", { count: "exact" }).eq("gameId", id);
 
@@ -79,11 +81,10 @@ export default async function TriviaLobby({ params }: Props) {
                         <GameTitle title="Trivia Game" />
                         <div className="h-3/5 w-12 relative self-center ml-14">
                             <Image src={"/white-question-mark.png"} alt={"question mark"} fill className={`${styles.rotateLeft}`} />
-                        </div>
-                    </div>
-                    <CoolButton href={`/trivia-game/${id}/intro`} textSize="text-3xl">
+                        </div>                    </div>
+                    <StartButton textSize="text-3xl" gameId={triviaGame![0].id}>
                         Start Game
-                    </CoolButton>
+                    </StartButton>
                 </div>
                 <div>
                     <div className={styles.neonBorder} style={{ "--neon-border-size": "5px" } as React.CSSProperties}>
@@ -95,9 +96,14 @@ export default async function TriviaLobby({ params }: Props) {
                 </div>
             </div>
             <div className="absolute bottom-0 m-10">
-                <CoolButton href={`/`} textSize="text-lg" hoverScale="hover:scale-100" padding="py-4 px-2">
-                    Back to Main Menu
-                </CoolButton>
+                <Link href={"/"}>
+                    <button
+                        className={`bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-4 px-4" 
+                        rounded-md transition duration-300 ease-in-out transform hover:scale-100`}
+                        style={{ textShadow: `2px 2px 10px blue` }}>
+                        Back to Main Menu
+                    </button>
+                </Link>
             </div>
         </div>
     );

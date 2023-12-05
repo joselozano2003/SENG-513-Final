@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation';
 
 import NeonButton from "../../components/NeonButton";
 import GameTitle from '@/app/(games)/trivia-game/components/GameTitle';
+import { GameQuestion } from './GameQuestion';
 
 
 interface Props {
@@ -58,6 +59,10 @@ const MobilePlayerPage = async ({ params }: Props) => {
 
 	console.log(gameState, currentQuestion, playerNumber)
 
+	async function handleClick(buttonNumber: number) {
+
+	}
+
 	if (gameState == 1) {
 		redirect(`/trivia-game-player/${id}/player-wait`)
 	}
@@ -65,8 +70,9 @@ const MobilePlayerPage = async ({ params }: Props) => {
 	if (gameState == 2) {
 		return (
 			<div>
-				<div className="mb-7">
+				<div className="[&>*]:m-5 flex flex-col items-center">
 				<GameTitle title="Trivia Game" fontSize="text-6xl" />
+				<GameTitle title={`Question ${currentQuestion}`} fontSize="text-4xl" />
 				</div>
 				<div className="flex flex-col items-center justify-center">
 				<NeonButton href="/trivia-game-player/55555/player-wait" textSize="text-lg" borderColor="blue" padding="py-4 px-2 mb-8">
@@ -81,6 +87,7 @@ const MobilePlayerPage = async ({ params }: Props) => {
 				<NeonButton href="/trivia-game-player/55555/player-wait" textSize="text-lg" borderColor="green" padding="py-4 px-2 mb-8">
 					Answer 4
 				</NeonButton>
+				<GameQuestion gameId={id} gameData={triviaGame} />
 				</div>
 			</div>
 		);

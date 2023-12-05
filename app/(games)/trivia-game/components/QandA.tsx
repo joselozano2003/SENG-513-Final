@@ -18,13 +18,9 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     const supabase = createClientComponentClient()
     const router = useRouter()
 
+
+    console.log(gameData)
     const currentQuestion = gameData![0].currentQuestion
-
-
-    if (currentQuestion > 8) {
-        redirect(`/trivia-game/${gameData![0].id}/end`)
-    }
-    console.log(currentQuestion)
 
     const questionData = questions[currentQuestion - 1]
 
@@ -51,8 +47,8 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     useEffect(() => {
         const timer = setTimeout(async () => {
+
             await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
-            console.log('This will run after 20 seconds');
         }, 19000); // 20000 milliseconds = 20 seconds
     
         // Clear the timer when the component unmounts
@@ -61,8 +57,66 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     useEffect(() => {
         const timer = setTimeout(async () => {
+            const { data: playerAnswers, error: playerAnswersError } = await supabase
+                .from('triviaPlayerAnswer')
+                .select()
+                .eq('questionId', questionData.id)
+                .eq("gameId", gameData![0].id)
+                .eq("gameRound", gameData![0].currentQuestion);
+
+            // CHECK IF ERROR
+            if (playerAnswersError) {
+                console.error('Error fetching player answers:', playerAnswersError);
+                return;
+            }
+
+            console.log(playerAnswers)
+
+            // Get the correct answer
+            let { data:correctAnswer, error:correctAnswersError } = await supabase
+                .from('triviaQuestionChoice')
+                .select()
+                .eq('questionId', questionData.id)
+                .eq("correct", true)
+
+
+            if (correctAnswersError) {
+                console.error('Error fetching correct answer:', correctAnswersError);
+                console.log(correctAnswersError)
+                return;
+            }
+
+            console.log(correctAnswer)
+
+            const correctAnswerId = correctAnswer![0].id
+
+            const correctAnswerPlayerIds = playerAnswers!.filter((answer: any) => answer.choiceId === correctAnswerId).map((answer: any) => answer.playerId)
+
+            console.log(correctAnswerPlayerIds)
+
+            // Update the players' points
+
+            for (let i = 0; i < correctAnswerPlayerIds.length; i++) {
+                const { data: playerData, error: playerDataError } = await supabase
+                    .from('triviaGamePlayer')
+                    .select()
+                    .eq('gameId', gameData![0].id)
+                    .eq('playerNumber', correctAnswerPlayerIds[i])
+
+                if (playerDataError) {
+                    console.error('Error fetching player data:', playerDataError);
+                    return;
+                }
+
+                console.log(playerData)
+
+                const playerPoints = playerData![0].score + 20
+
+                await supabase.from('triviaGamePlayer').update({ score: playerPoints }).eq('gameId', gameData![0].id).eq('playerNumber', correctAnswerPlayerIds[i])
+            }
+
+            
             await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
-            console.log('This will run after 20 seconds');
         }, 19000); // 20000 milliseconds = 20 seconds
     
         // Clear the timer when the component unmounts
