@@ -86,6 +86,14 @@ const MobilePlayerPage = async ({ params }: Props) => {
 		);
 	}
 
+	if (gameState == 3) {
+		return (
+			<div>
+				Game has ended
+			</div>
+		)
+	}
+
     
   };
   

@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
             state: 1,
             playerLimit: 8,
             admin: data.admin,
+            currentQuestion: 1,
         },
     });
 
