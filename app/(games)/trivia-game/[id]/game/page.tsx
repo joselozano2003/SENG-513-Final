@@ -112,7 +112,7 @@ export default async function GamePage({ params }: Props) {
             <div className="flex justify-between">
                 <div className="flex justify-center w-5/12">
                     <div className="border-2 border-opacity-5 w-fit p-5">
-                        <Avatars gridLayout={2} bg="none" gap="game" showPoints={true} gameId={id} playerData={playerData} playerCount={count!}/>
+                        <Avatars gridLayout={2} bg="none" gap="game" showPoints={true} gameId={id} playerData={playerData} playerCount={count!} />
                     </div>
                 </div>
                 <QandA questions={triviaQuestions} choices={groupedChoices} gameData={triviaGame} />

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./styles.module.css";
 
 import { prisma } from "@/lib/prisma";
@@ -73,7 +74,11 @@ export default async function TriviaLobby({ params }: Props) {
         <div className={`flex flex-col justify-center h-full border-4 rounded-2xl ${styles.neonBorder}`}>
             <div className="flex flex-row justify-evenly">
                 <div className="flex flex-col justify-evenly items-center">
-                    <GameTitle title="Trivia Game" />
+                    <>
+                        <Image src={"/white-question-mark.png"} alt={"question mark"} />
+                        <GameTitle title="Trivia Game" />
+                        <Image src={"/white-question-mark.png"} alt={"question mark"} />
+                    </>
                     <CoolButton href={`/trivia-game/${id}/intro`} textSize="text-3xl">
                         Start Game
                     </CoolButton>

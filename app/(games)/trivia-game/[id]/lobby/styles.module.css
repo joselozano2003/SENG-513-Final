@@ -30,3 +30,40 @@
         border-color: green;
     }
 }
+
+@keyframes rotateLeft {
+    0% {
+      transform: rotate(-45deg);
+    }
+    50% {
+      transform: rotate(45deg);
+    }
+    100% {
+      transform: rotate(-45deg);
+    }
+  }
+  
+  @keyframes rotateRight {
+    0% {
+      transform: rotate(45deg);
+    }
+    50% {
+      transform: rotate(-45deg);
+    }
+    100% {
+      transform: rotate(45deg);
+    }
+  }
+  
+  .question-mark {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin-right: 0.2em;
+    margin-left: 0.2em;
+    animation: rotateLeft 2s linear infinite;
+  
+    /* &:nth-child(odd) {
+      animation: rotateRight 2s linear infinite;
+    } */
+  }
