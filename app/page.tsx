@@ -28,7 +28,7 @@ export default function Home() {
     setCoinText2('10 Players');
     setCoinText3('30\nminutes');
     // Change the image on ipad on hover
-    setScreenImage('/triviaPlaceholder.jpg');
+    setScreenImage('/prompt-game-background.jpg');
   };
 
   const handleCardLeave = () => {
