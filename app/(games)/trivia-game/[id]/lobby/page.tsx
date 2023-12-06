@@ -90,7 +90,7 @@ export default async function TriviaLobby({ params }: Props) {
                     <div className={styles.neonBorder} style={{ "--neon-border-size": "5px" } as React.CSSProperties}>
                         <Avatars gridLayout={4} bg="grey" gap="lobby" showPoints={false} gameId={id} playerData={playerData} playerCount={count!} />
                     </div>
-                    <div className={`w-fit mx-auto mt-12 text-xl p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
+                    <div className={`w-fit mx-auto mt-12 p-7 bg-gray-100 bg-opacity-10 rounded-full`}>
                         <JoinStuff id={id} />
                     </div>
                 </div>

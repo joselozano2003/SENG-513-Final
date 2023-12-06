@@ -55,7 +55,7 @@ export default function page({ params }: Props) {
                     </CoolButton>
                 </div>
                 <div className="flex flex-col justify-center items-center w-1/2">
-                    <div className="bg-blue-200 bg-opacity-50 rounded-full w-fit p-8">
+                    <div className="bg-blue-200 bg-opacity-40 rounded-full w-fit p-8">
                         <JoinStuff id={id} />
                     </div>
                 </div>

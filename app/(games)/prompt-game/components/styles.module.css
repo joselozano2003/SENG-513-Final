@@ -11,26 +11,27 @@
     animation: snake 2s infinite ease-in-out;
 }
 
-.cool-button {
+.slidingButton {
     display: inline-block;
+    text-decoration: none;
     position: relative;
     isolation: isolate;
 }
 
-.cool-button::after {
+.slidingButton::after {
     content: '';
     position: absolute;
     z-index: -1;
-    background-color: #add836;
+    background-color: var(--button-color);
     inset: 0;
 
-    scale: 0.5 1;
+    scale: 0 1;
     transform-origin: left;
     transition: scale 450ms;
 }
 
-.cool-button::hover::after
-.cool-button::focus-visible::after {
+.slidingButton:hover::after,
+.slidingButton:focus-visible::after {
     transform-origin: right;
     scale: 1 1;
 }
