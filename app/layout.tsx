@@ -4,6 +4,8 @@ import "./globals.css";
 import Link from "next/link";
 import AuthButton from "@/components/AuthButton";
 
+import {Toaster} from 'react-hot-toast'
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </div>
                     </nav>
                     {children}
+                    <Toaster />
                 </main>
             </body>
         </html>

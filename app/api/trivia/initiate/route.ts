@@ -18,6 +18,18 @@ export async function POST(request: NextRequest) {
         },
     });
 
+    console.log(game);
+
+    if (!game) {
+        return NextResponse.error();
+    }
+
+    if (game.playerLimit == 8) {
+        console.log("No players in game")
+        return NextResponse.json({ error: "No players in game" });
+    }
+
+
     if (game!.state != 1) {
         return NextResponse.json(200);
     }
@@ -37,7 +49,7 @@ export async function POST(request: NextRequest) {
         },
     })
 
-    return NextResponse.json(200);
+    return NextResponse.error();
 
 }
 

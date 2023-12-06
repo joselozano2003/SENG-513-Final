@@ -17,6 +17,8 @@ import { createClient } from "@/utils/supabase/server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 
+import {toast} from "react-hot-toast";
+
 interface Props {
     params: {
         id: string;
@@ -49,6 +51,17 @@ export default async function TriviaLobby({ params }: Props) {
         alert(error1.message);
     }
     console.log(triviaGame);
+
+    if (triviaGame?.length === 0) {
+        return (
+            <div className="text-center text-2xl font-bold">
+                <h1 className="mb-4">You are not the owner of the game</h1>
+                <CoolButton href={"/"} textSize="text-2xl">
+                    Back to Main Menu
+                </CoolButton>
+            </div>
+        );
+    }
     console.log(triviaGame![0].id);
 
     let { data: playerData, error: error2, count } = await supabase.from("triviaGamePlayer").select("*", { count: "exact" }).eq("gameId", id);

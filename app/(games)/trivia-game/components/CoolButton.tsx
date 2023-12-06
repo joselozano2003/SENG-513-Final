@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
+import toast from 'react-hot-toast';
 
 interface CoolButtonProps {
     href: string;
@@ -116,6 +117,11 @@ export const StartButton: React.FC<StartButtonProps> = ({ textSize, padding, hov
         if (!res.ok) {
             console.log("Error creating game");
             console.log(data);
+            return;
+        }
+        else if (data.error){
+            console.log(data.error);
+            toast.error(data.error);
             return;
         }
         else {
