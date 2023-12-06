@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
         },
         data: {
             state: 2,
+            currentQuestion: 1,
             questions: {
                 connect: questionIds.map((id: number) => ({
                     id: id,

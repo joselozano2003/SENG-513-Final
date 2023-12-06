@@ -64,7 +64,7 @@ export default async function GamePage({ params }: Props) {
         alert(error2.message);
     }
 
-    let { data: questionConnections, error: error3 } = await supabase.from("_triviaGameTotriviaQuestion").select("B").eq("A", 1);
+    let { data: questionConnections, error: error3 } = await supabase.from("_triviaGameTotriviaQuestion").select("B").eq("A", id);
 
     if (error3) {
         console.log(error3);

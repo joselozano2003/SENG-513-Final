@@ -44,7 +44,7 @@ const MobilePlayerPage = async ({ params }: Props) => {
     console.log(triviaPlayer)
 
     if (triviaPlayer!.length == 0) {
-        redirect(`/`) // TODO: Not in game page
+        redirect(`/`)
     }
 
 	let { data: triviaGame, error: error1 } = await supabase.from("triviaGame").select("*").eq("id", id)
@@ -55,28 +55,8 @@ const MobilePlayerPage = async ({ params }: Props) => {
 
 	const playerNumber = triviaPlayer![0].playerNumber;
 
-	const gameState = triviaGame![0].state
+	const gameState = triviaGame![0].state;
 
-	console.log(gameState, currentQuestion, playerNumber)
-
-	async function handleClick(buttonNumber: number) {
-		"use server"
-
-		const body = {
-			gameId: id,
-			gameRound: currentQuestion,
-			choice: buttonNumber,
-			userId: userId,
-		}
-
-		console.log(body)
-
-		// const res = await fetch("/api/trivia/ser/submit", {
-		// 	method: "POST",
-		// 	headers: { "Content-Type": "application/json" },
-		// 	body: JSON.stringify(body),
-		// })
-	}
 
 	if (gameState == 1) {
 		redirect(`/trivia-game-player/${id}/player-wait`)
@@ -90,16 +70,16 @@ const MobilePlayerPage = async ({ params }: Props) => {
 				<GameTitle title={`Question ${currentQuestion}`} fontSize="text-4xl" />
 				</div>
 				<div className="flex flex-col items-center justify-center">
-				<NeonButton textSize="text-lg" borderColor="blue" padding="py-4 px-2 mb-8" handleClick={handleClick} buttonId={1}>
+				<NeonButton textSize="text-lg" borderColor="blue" padding="py-4 px-2 mb-8" buttonId={1} userId={userId} currentQuestion={currentQuestion} gameId={id}>
 					Answer 1
 				</NeonButton>
-				<NeonButton textSize="text-lg" borderColor="purple" padding="py-4 px-2 mb-8" handleClick={handleClick} buttonId={2}>
+				<NeonButton textSize="text-lg" borderColor="purple" padding="py-4 px-2 mb-8"  buttonId={2} userId={userId} currentQuestion={currentQuestion} gameId={id}>
 					Answer 2
 				</NeonButton>
-				<NeonButton textSize="text-lg" borderColor="red" padding="py-4 px-2 mb-8" handleClick={handleClick} buttonId={3}>
+				<NeonButton textSize="text-lg" borderColor="red" padding="py-4 px-2 mb-8" buttonId={3} userId={userId} currentQuestion={currentQuestion} gameId={id}>
 					Answer 3
 				</NeonButton>
-				<NeonButton textSize="text-lg" borderColor="green" padding="py-4 px-2 mb-8" handleClick={handleClick} buttonId={4}>
+				<NeonButton textSize="text-lg" borderColor="green" padding="py-4 px-2 mb-8" buttonId={4} userId={userId} currentQuestion={currentQuestion} gameId={id}>
 					Answer 4
 				</NeonButton>
 				<GameQuestion gameId={id} gameData={triviaGame} />

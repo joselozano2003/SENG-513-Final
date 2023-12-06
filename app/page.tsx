@@ -56,7 +56,7 @@ export default function Home() {
                 </Link>
               </div>
               <div className={styles["card-inner"]}>
-                <Link href="/trivia-game/55555/lobby" passHref>
+                <Link href="/trivia-game" passHref>
                 <div className={styles.card4} id="Card4">
                   <div className={styles["card-title"]}>
                     <h2 className="card-title-text">Trivia Game</h2>
