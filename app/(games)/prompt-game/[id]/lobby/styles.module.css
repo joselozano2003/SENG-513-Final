@@ -1,0 +1,31 @@
+@keyframes resize {
+    /* 0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.5);
+    }
+    50% {
+        transform: scale(2);
+    }
+    75% {
+        transform: scale(1.5);
+    } */
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    80% {
+        transform: scale(2.0);
+    }
+}
+
+.animateResize {
+    animation: resize 1s steps(1) infinite alternate;
+}
+
+.animateResizeReverse {
+    animation: resize 1s steps(1) infinite alternate-reverse;
+}
