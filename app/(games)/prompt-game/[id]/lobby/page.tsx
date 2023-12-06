@@ -1,8 +1,10 @@
 import React from "react";
+import Image from "next/image";
 import GameTitle from "../../components/GameTitle";
 import Avatars, { Player } from "../../components/Avatars";
 import CoolButton from "../../components/CoolButton";
 import JoinStuff from "@/app/(games)/components/JoinStuff";
+import styles from "./styles.module.css";
 
 interface Props {
     params: {
@@ -28,7 +30,15 @@ export default function page({ params }: Props) {
 
     return (
         <div className="flex flex-col w-full h-full items-center pt-3">
-            <GameTitle title="Prompt Game" />
+            <div className="flex flex-row">
+                <div className="h-3/5 w-12 relative self-center mr-40">
+                    <Image src={"/chat-box.png"} alt={"chat box"} fill className={`${styles.animateResize}`} />
+                </div>
+                <GameTitle title="Prompt Game" />
+                <div className="h-3/5 w-12 relative self-center ml-40">
+                    <Image src={"/chat-box.png"} alt={"chat box"} fill className={`${styles.animateResizeReverse}`} />
+                </div>
+            </div>
             <div className="flex flex-row w-full h-full">
                 <div className="flex flex-col justify-between w-1/2">
                     <div></div>
@@ -45,7 +55,7 @@ export default function page({ params }: Props) {
                     </CoolButton>
                 </div>
                 <div className="flex flex-col justify-center items-center w-1/2">
-                    <div className="bg-blue-200 bg-opacity-70 rounded-lg w-fit p-8">
+                    <div className="bg-blue-200 bg-opacity-50 rounded-full w-fit p-8">
                         <JoinStuff id={id} />
                     </div>
                 </div>
