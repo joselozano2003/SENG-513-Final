@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
         },
     });
 
+    console.log(trivia);
+    
     return NextResponse.json(trivia.id);
 }
 
