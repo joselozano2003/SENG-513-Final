@@ -109,14 +109,15 @@ export default async function TriviaLobby({ params }: Props) {
                 </div>
             </div>
             <div className="absolute bottom-0 m-10">
-                <Link href={"/"}>
+                {/* <Link href={"/"}>
                     <button
                         className={`bg-blue-500 hover:bg-blue-700 text-white text-lg font-bold py-4 px-4" 
                         rounded-md transition duration-300 ease-in-out transform hover:scale-100`}
                         style={{ textShadow: `2px 2px 10px blue` }}>
                         Back to Main Menu
                     </button>
-                </Link>
+                </Link> */}
+                <CoolButton href="/" textSize="text-lg" padding="py-4 px-2">Back to Main Menu</CoolButton>
             </div>
         </div>
     );
