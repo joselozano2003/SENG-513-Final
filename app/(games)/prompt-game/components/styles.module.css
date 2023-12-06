@@ -10,3 +10,27 @@
 .animateSnake {
     animation: snake 2s infinite ease-in-out;
 }
+
+.cool-button {
+    display: inline-block;
+    position: relative;
+    isolation: isolate;
+}
+
+.cool-button::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    background-color: #add836;
+    inset: 0;
+
+    scale: 0.5 1;
+    transform-origin: left;
+    transition: scale 450ms;
+}
+
+.cool-button::hover::after
+.cool-button::focus-visible::after {
+    transform-origin: right;
+    scale: 1 1;
+}

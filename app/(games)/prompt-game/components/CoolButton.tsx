@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import styles from "./styles.module.css";
 
 interface CoolButtonProps {
     href: string;
@@ -21,7 +22,7 @@ const CoolButton: React.FC<CoolButtonProps> = ({ href, textSize, padding, hoverS
                 className={`${colorClasses} text-white ${textSize} font-bold ${
                     padding || "py-6 px-8"
                 } rounded-md border-2 border-black transition duration-300 ease-in-out transform ${hoverScale || "hover:scale-110"}`}
-                style={{ textShadow: `2px 2px 10px ${textShadowColor}` }}
+                style={{ textShadow: `2px 2px 10px ${textShadowColor} ${styles.CoolButton}` }}
             >
                 {children}
             </button>
