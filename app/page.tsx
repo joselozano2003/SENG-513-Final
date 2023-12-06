@@ -15,10 +15,10 @@ export default function Home() {
   const handleCard3Hover = () => {
     // Change the coin text on hover
     setCoinText1('Creative\nAnswers');
-    setCoinText2('15 Players');
+    setCoinText2('8 Players');
     setCoinText3('45\nminutes')
     // Change the image on ipad on hover
-    setScreenImage('/prompt-game-background.jpg');
+    setScreenImage('/promptGameplay.png');
   };
 
   //Called when user hovers mouse over the fourth card
@@ -28,7 +28,7 @@ export default function Home() {
     setCoinText2('10 Players');
     setCoinText3('30\nminutes');
     // Change the image on ipad on hover
-    setScreenImage('/prompt-game-background.jpg');
+    setScreenImage('/triviaGameplay.png');
   };
 
   const handleCardLeave = () => {
