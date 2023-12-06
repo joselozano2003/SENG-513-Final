@@ -2,97 +2,77 @@
 
 import GameTitle from "@/app/(games)/trivia-game/components/GameTitle";
 import JoinButton from "./JoinButton";
-import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
-
-
-export default function JoinForm({ codeList }) {
-    const [userName, setUserName] = useState('');
-    const [gameCode, setGameCode] = useState('');
-    const [isButtonVisible, setButtonVisible] = useState(false);
-    const [buttonLink, setButtonLink] = useState('')
-
-    // error-proofing: hide join button unless all fields filled in
-    useEffect(() => {
-        if (userName !== '' && gameCode !== '') {
-            setButtonVisible(true);
-
-            //  TEMPORARY FIX
-            // handle existence of gamecode here
-            // handle limit of players here
-            if (codeList.includes(gameCode)) {
-                // console.log('match!')
-                setButtonLink(`/trivia-game-player/${gameCode}/player-wait`)
-            } else {
-                // console.log('not match!')
-                setButtonLink('/trivia-game-player/invalid-game-code')
-            }
-        } else {
-            setButtonVisible(false);
-        }
-
-
-        // console.log(userName);
-        // console.log(gameCode);
-        // console.log(codeList)
-    }, [userName, gameCode])
+import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 
 
 
+export default function JoinForm() {
 
-    const JoinGamePage = async () => {
-        
-        // console.log("clicked!");
-        // console.log(userName);
-        // console.log(gameCode); 
+	const colorClasses =  "bg-blue-500 hover:bg-blue-700";
+    const textShadowColor = "blue";
 
-        // assumption: everything has been error-handled once the button is pressable
-        if (codeList.includes(gameCode)) {
-            // back-end stuff, add player to trivia game database: idk how?
-           // TODO 
-        } 
-    };
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const gameCode = formData.get("gameCode");
 
+		const body = {
+			id: gameCode,
+		};
+
+		console.log(body);
+
+	
+
+		try {
+			const res = await fetch("/api/trivia/join", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(body),
+			});
+
+			console.log(res.status);
+
+			if (res.status == 200) {
+				window.location.href = `/trivia-game-player/${gameCode}/player-wait`; 
+			} else {
+				alert("Invalid game code");
+			}
+		}
+		catch (err) {
+			console.log(err);
+			alert("Invalid game code");
+		}
+
+
+	}
 
     return (
         <div className="text-white flex flex-col items-center justify-center h-full">
-      <div className="mb-8">
-        <GameTitle title="Party Game" fontSize="text-6xl" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="username" className="block text-lg font-bold mb-2">
-          Username:
-        </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          className="border-2 border-white rounded-md p-2 text-black"
-          onChange={(e) => {setUserName(e.target.value)}}
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="gameCode" className="block text-lg font-bold mb-2">
-          Game Code:
-        </label>
-        <input
-          type="text"
-          id="gameCode"
-          name="gameCode"
-          className="border-2 border-white rounded-md p-2 text-black"
-          onChange={(e) => {setGameCode(e.target.value)}}
-        />
-      </div>
-      {isButtonVisible && (<JoinButton
-        href = {buttonLink}
-        textSize="text-lg"
-        hoverScale="hover:scale-100"
-        padding="py-2 px-4"
-        // onClick={JoinGamePage}
-        >
-        Join
-      </JoinButton>)}
-      </div>
-
+			<div className="mb-8">
+				<GameTitle title="Party Game" fontSize="text-6xl" />
+			</div>
+			<div className="mb-4">
+				<form onSubmit={handleSubmit} className="flex flex-col [&>*]:m-5">
+					<label htmlFor="gameCode" className="block text-lg font-bold mb-2">
+						Game Code:
+					</label>
+					<input
+					type="text"
+					id="gameCode"
+					name="gameCode"
+					className="border-2 border-white rounded-md p-2 text-black"
+					/>
+					<button
+						onClick={()=>{}}
+						className={`${colorClasses} text-white text-lg font-bold py-2 px-4
+						rounded-md transition duration-300 ease-in-out transform hover:scale-100`}
+						style={{ textShadow: `2px 2px 10px ${textShadowColor}`}}>
+							Join Game
+					</button>
+				</form>
+			</div>
+		</div>
     );
 }

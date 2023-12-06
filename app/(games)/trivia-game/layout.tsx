@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 // assets
@@ -10,19 +11,48 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const bgStyling = {
-        backgroundImage: `url(${blackBrickBackground.src})`,
-        // <a href="https://www.freepik.com/free-photo/black-brick-wall-textured-background_3475675.htm#query=black%20brick%20wall&position=1&from_view=search&track=ais&uuid=b7b18b50-2020-476b-95e9-4440c4d181eb">Image by rawpixel.com</a> on Freepik
-        backgroundSize: "100% 100%",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        padding: "4vh 3vw",
-    };
     return (
-            <section>
-                <div className="h-screen bg-cover w-[100vw]" style={bgStyling}>
-                    {children}
-                </div>
-            </section>
+        <div
+            style={{
+                position: "relative",
+                width: "100vw",
+                height: "100vh",
+                // padding: "4vh 3vw",
+                maxWidth: "100%",
+                overflow: "hidden",
+            }}
+        >
+            <div>
+                <Image
+                    src={blackBrickBackground}
+                    alt="black stone background"
+                    placeholder="blur"
+                    quality={100}
+                    fill
+                    sizes="100vw"
+                    // objectFit="cover"
+                />
+            </div>
+            <div style={{ position: "absolute", zIndex: 1, width: "100%", height: "100%", padding: "4vh 3vw" }}>{children}</div>
+        </div>
     );
 }
+
+// export default function RootLayout({ children }: { children: React.ReactNode }) {
+//     const bgStyling = {
+//         backgroundImage: `url(${blackBrickBackground.src})`,
+//         // <a href="https://www.freepik.com/free-photo/black-brick-wall-textured-background_3475675.htm#query=black%20brick%20wall&position=1&from_view=search&track=ais&uuid=b7b18b50-2020-476b-95e9-4440c4d181eb">Image by rawpixel.com</a> on Freepik
+//         backgroundSize: "100% 100%",
+//         backgroundPosition: "center",
+//         backgroundRepeat: "no-repeat",
+//         height: "100vh",
+//         padding: "4vh 3vw",
+//     };
+//     return (
+//         <html lang="en">
+//             <body>
+//                 <div style={bgStyling}>{children}</div>
+//             </body>
+//         </html>
+//     );
+// }

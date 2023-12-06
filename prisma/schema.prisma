@@ -10,22 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-}
-
-
-
 model triviaGame {
   id          Int     @id @default(autoincrement())
   state       Int
   players     triviaGamePlayer[]
   questions   triviaQuestion[]
+  answers     triviaPlayerAnswer[]
   playerLimit Int
   admin       String
+  currentQuestion BigInt
 }
 
 model triviaGamePlayer {
@@ -60,9 +53,12 @@ model triviaQuestionChoice {
 model triviaPlayerAnswer {
   id          Int     @id @default(autoincrement())
   player      triviaGamePlayer    @relation(fields: [playerId], references: [id])
+  gameId      Int
+  game        triviaGame    @relation(fields: [gameId], references: [id])
   playerId    Int
   question    triviaQuestion    @relation(fields: [questionId], references: [id])
   questionId  Int
   choice      triviaQuestionChoice    @relation(fields: [choiceId], references: [id])
   choiceId    Int
+  gameRound   Int
 }

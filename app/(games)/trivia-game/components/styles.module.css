@@ -1,34 +1,12 @@
-.timer {
-    width: 100px;
-    height: 100px;
+@keyframes titleAnimation {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
 }
 
-.circular-chart {
-    display: block;
-    margin: 10px auto;
-    max-width: 90%;
-    max-height: 90%;
-}
-
-.circle {
-    fill: none;
-    stroke: #1C72FF;
-    stroke-width: 20;
-    stroke-dasharray: 63;
-    stroke-dashoffset: 63;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    /* animation: progress 20s linear forwards; */
-}
-
-@keyframes progress {
-    0% {
-        stroke-dashoffset: 0;
-    }
-    80% {
-        stroke-dashoffset: 63;
-    }
-    100% {
-        stroke-dashoffset: 0;
-    }
+.gameTitle {
+    animation: titleAnimation 2s infinite;
 }

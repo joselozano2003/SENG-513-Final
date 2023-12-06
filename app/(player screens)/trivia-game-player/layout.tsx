@@ -13,10 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         padding: "7vh 5vw",
     };
     return (
-        <html lang="en">
-            <body>
+            <div className="w-[100vw]">
                 <div className="h-screen bg-cover" style={bgStyling}>{children}</div>
-            </body>
-        </html>
+            </div>
+
     );
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState} from "react";
+import React, { useEffect} from "react";
 
-import CircularTimer from "./CircularTimer";
+import CircularTimer from "../../components/CircularTimer";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect, useRouter } from "next/navigation";
@@ -18,14 +18,9 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
     const supabase = createClientComponentClient()
     const router = useRouter()
 
+
+    console.log(gameData)
     const currentQuestion = gameData![0].currentQuestion
-    const [score, setScore] = useState(null)
-
-
-    if (currentQuestion > 8) {
-        redirect(`/trivia-game/${gameData![0].id}/end`)
-    }
-    console.log(currentQuestion)
 
     const questionData = questions[currentQuestion - 1]
 
@@ -44,7 +39,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             supabase.removeChannel(channel)
         }
 
-    }, [supabase, router, gameData])
+    }, [supabase, router])
 
 
     // Commented out because it spends DB's resources. Only uncomment when testing.
@@ -52,40 +47,22 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     useEffect(() => {
         const timer = setTimeout(async () => {
+
             await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
-            console.log('This will run after 20 seconds');
         }, 19000); // 20000 milliseconds = 20 seconds
     
         // Clear the timer when the component unmounts
         return () => clearTimeout(timer);
-    }, [currentQuestion, gameData, supabase]);
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(async () => {
-            await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
-            console.log('This will run after 20 seconds');
-        }, 19000); // 20000 milliseconds = 20 seconds
-    
-        // Clear the timer when the component unmounts
-        return () => clearTimeout(timer);
-    }, [currentQuestion, gameData, supabase]);
-
-    // ONCE THE TIMER ABOVE ENDS, DISPLAY CORRECT ANSWER ON SCREEN! (ANOTHER QUERY)
-    // CHECK TRIVIAPLAYERANSWER AND TRIVIAQUSTION TABLE
-    // VALIDATE ANSWERS IN QUESTION COLUMN AND UPDATE PLAYER SCORE IN PLAYER COLUMN
-    // triviaPlayerAnswer : id, playerId,QuestionId,choiceId
-    // triviaQuestion : id, question, answer, category
-    // if triviaplayeranswer.choice id == triviaquestionchoice.id and it is true, get the player id and score +=1
-   
-   useEffect(() => {
-    const fetchPlayerAnswer = async () => {
-
-        try {
-            // Fetch player answers with details from triviaquestionchoice
             const { data: playerAnswers, error: playerAnswersError } = await supabase
                 .from('triviaPlayerAnswer')
                 .select()
-                .eq('questionId', questionData.id);
+                .eq('questionId', questionData.id)
+                .eq("gameId", gameData![0].id)
+                .eq("gameRound", gameData![0].currentQuestion);
 
             // CHECK IF ERROR
             if (playerAnswersError) {
@@ -93,82 +70,60 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
                 return;
             }
 
-            // Map over player answers and fetch corresponding details from triviaQuestionChoice
-            // once it has "grabbed" all the data from the above (playeranswers) from triviaPlayerAnswer, we fetch 
-            // the details from the other database table
-            // for reference :promise.all waits for all these promises to settle and returns a new promise that fulfills with the array of the results
-            // in these case its the player answers, then we declare a ne constant playerAnswersWithDetails that correspond to it
-            const playerAnswersWithDetails = await Promise.all(playerAnswers.map(async (playerAnswer) => {
-                const { data: choiceDetails, error: choiceError } = await supabase
-                    .from('triviaQuestionChoice')
-                    .select()
-                    // check for equality if the id is equal to the playerAnswer.choiceID
-                    .eq('id', playerAnswer.choiceId)
-                    .eq('correct', true)
-                    .single();
+            console.log(playerAnswers)
 
-                if (choiceError) {
-                    console.error('Error fetching choice details:', choiceError);
-                    return null;
+            // Get the correct answer
+            let { data:correctAnswer, error:correctAnswersError } = await supabase
+                .from('triviaQuestionChoice')
+                .select()
+                .eq('questionId', questionData.id)
+                .eq("correct", true)
+
+
+            if (correctAnswersError) {
+                console.error('Error fetching correct answer:', correctAnswersError);
+                console.log(correctAnswersError)
+                return;
+            }
+
+            console.log(correctAnswer)
+
+            const correctAnswerId = correctAnswer![0].id
+
+            const correctAnswerPlayerIds = playerAnswers!.filter((answer: any) => answer.choiceId === correctAnswerId).map((answer: any) => answer.playerId)
+
+            console.log(correctAnswerPlayerIds)
+
+            // Update the players' points
+
+            for (let i = 0; i < correctAnswerPlayerIds.length; i++) {
+                const { data: playerData, error: playerDataError } = await supabase
+                    .from('triviaGamePlayer')
+                    .select()
+                    .eq('gameId', gameData![0].id)
+                    .eq('playerNumber', correctAnswerPlayerIds[i])
+
+                if (playerDataError) {
+                    console.error('Error fetching player data:', playerDataError);
+                    return;
                 }
 
-                return {
-                    ...playerAnswer,
-                    // isCorrect: , // Add isCorrect field to the player answer
-                };
-            }));
+                console.log(playerData)
 
-            console.log("Player Answers with Details:", playerAnswersWithDetails);
+                const playerPoints = playerData![0].score + 20
 
-            // Now you can check correctness and update score as needed
-            const correctAnswers = playerAnswersWithDetails.filter(answer => answer.isCorrect);
-            const incorrectAnswers = playerAnswersWithDetails.filter(answer => !answer.isCorrect);
+                await supabase.from('triviaGamePlayer').update({ score: playerPoints }).eq('gameId', gameData![0].id).eq('playerNumber', correctAnswerPlayerIds[i])
+            }
 
-            console.log("Correct Answers:", correctAnswers);
-            console.log("Incorrect Answers:", incorrectAnswers);
-
-            // // Update score based on correct answers
-            // setScore(prevScore => prevScore + correctAnswers.length);
-
-        } catch (error) {
-            console.error('Error in fetchPlayerAnswer:', error);
-        }
-    }
-
-    fetchPlayerAnswer();
-}, [questionData, supabase, setScore]);
-   
-   
-   
-    //useEffect(() => {
-
-        // MAYBE IT WILL CHECK HERE IF THE QUESTION CHANGES 
-        
-    //     const fetchPlayerAnswer = async () => {
-    //         const playerAnswers = await supabase
-    //         .from('triviaPlayerAnswer')
-    //         .select('*')
-    //         .eq('QuestionId', questionData.id);
-    //         console.log("Player Answers:", playerAnswers.data);
-        
-    //     }
-
-    //     const fetchQuestionAnswer = async () => {
-    //         const questionAnswers = await supabase
-    //         .from('triviaQuestion')
-    //         .select('')
-    //         .eq('id',)
-    //         console.log("Trivia Questions:", questionAnswers.data);
             
-    //     }
-        
-        
-    //     // SET SCORE HERE
+            await supabase.from('triviaGame').update({ currentQuestion: currentQuestion + 1 }).eq('id', gameData![0].id)
+        }, 19000); // 20000 milliseconds = 20 seconds
+    
+        // Clear the timer when the component unmounts
+        return () => clearTimeout(timer);
+    }, [currentQuestion]);
 
-    //     fetchPlayerAnswer();
-    //     fetchQuestionAnswer();
 
-    // }, [supabase]);
 
     // get these from the database later
     let answerLetters = ["A", "B", "C", "D", "E"];

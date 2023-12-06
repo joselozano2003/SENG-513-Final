@@ -1,32 +1,70 @@
 .neonBorder {
+    --neon-border-size: 10px;
     position: relative;
     content: "";
-    border: 10px solid blue;
-    border-radius: 15px;
-    box-shadow: 0 0 10px, 0 0 20px, 0 0 30px, 0 0 40px, inset 0 0 10px, inset 0 0 20px, inset 0 0 30px, inset 0 0 40px;
+    border: var(--neon-border-size) solid blue;
+    border-radius: 30px;
+    box-shadow: 0 0 var(--neon-border-size), 0 0 calc(2 * var(--neon-border-size)), 0 0 calc(3 * var(--neon-border-size)), 0 0 calc(4 * var(--neon-border-size)), 
+                inset 0 0 var(--neon-border-size), inset 0 0 calc(2 * var(--neon-border-size)), inset 0 0 calc(3 * var(--neon-border-size)), inset 0 0 calc(4 * var(--neon-border-size));
     animation: neon 20s infinite;
 }
 
 @keyframes neon {
     0%,
     100% {
-        box-shadow: 0 0 10px blue, 0 0 20px blue, 0 0 30px blue, 0 0 40px blue, inset 0 0 10px blue, inset 0 0 20px blue,
-            inset 0 0 30px blue, inset 0 0 40px blue;
+        box-shadow: 0 0 10px blue, 0 0 20px blue, 0 0 30px blue, 0 0 40px blue, inset 0 0 10px blue, inset 0 0 20px blue, inset 0 0 30px blue, inset 0 0 40px blue;
         border-color: blue;
     }
     25% {
-        box-shadow: 0 0 10px purple, 0 0 20px purple, 0 0 30px purple, 0 0 40px purple, inset 0 0 10px purple, inset 0 0 20px purple,
-            inset 0 0 30px purple, inset 0 0 40px purple;
+        box-shadow: 0 0 10px purple, 0 0 20px purple, 0 0 30px purple, 0 0 40px purple, inset 0 0 10px purple, inset 0 0 20px purple, inset 0 0 30px purple,
+            inset 0 0 40px purple;
         border-color: purple;
     }
     50% {
-        box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red, inset 0 0 10px red, inset 0 0 20px red,
-            inset 0 0 30px red, inset 0 0 40px red;
+        box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red, inset 0 0 10px red, inset 0 0 20px red, inset 0 0 30px red, inset 0 0 40px red;
         border-color: red;
     }
     75% {
-        box-shadow: 0 0 10px green, 0 0 20px green, 0 0 30px green, 0 0 40px green, inset 0 0 10px green, inset 0 0 20px green,
-            inset 0 0 30px green, inset 0 0 40px green;
+        box-shadow: 0 0 10px green, 0 0 20px green, 0 0 30px green, 0 0 40px green, inset 0 0 10px green, inset 0 0 20px green, inset 0 0 30px green, inset 0 0 40px green;
         border-color: green;
     }
+}
+
+@keyframes rotateLeft {
+    0%, 50% {
+        transform: rotate(-45deg);
+    }
+    51%, 100% {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes rotateRight {
+    0%, 50% {
+        transform: rotate(45deg);
+    }
+    51%, 100% {
+        transform: rotate(-45deg);
+    }
+}
+
+.question-mark {
+    /* width: 1em;
+    height: 1em; */
+    /* display: inline-block;
+    margin-right: 0.2em;
+    margin-left: 0.2em; */
+    animation: rotateLeft 0.1s linear infinite;
+
+    /* &:nth-child(odd) {
+      animation: rotateRight 2s linear infinite;
+    } */
+}
+
+.rotateLeft {
+    animation: rotateLeft 1s linear infinite;
+}
+
+.rotateRight {
+    animation: rotateRight 1s linear infinite;
 }
