@@ -79,7 +79,7 @@ async function EndingScreen ({ params }: Props) {
 			<div className="text-4xl font-bold mb-4">
 				<p>Winner{winners.length > 1 ? "s" : ""}:</p>
 				{winners.map((winner) => (
-					<p>Player {winner}</p>
+					<p key={winner}>Player {winner}</p>
 				))}
 			</div>
 			<div className="text-lg mb-4">
