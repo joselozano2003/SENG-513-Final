@@ -63,6 +63,8 @@ export const TestButton: React.FC<TestButtonProps> = ({ textSize, padding, hover
         
         const data = await res.json();
 
+        console.log(data);
+
         if (!res.ok) {
             console.log("Error creating game");
             console.log(data);

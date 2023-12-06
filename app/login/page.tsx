@@ -22,7 +22,8 @@ export default function Login({
     })
 
     if (error) {
-      return redirect('/login?message=Could not authenticate user')
+      console.error("Error signing in:", error.message);
+      return redirect(`/login?message=${error.message}`)
     }
 
     return redirect('/')
