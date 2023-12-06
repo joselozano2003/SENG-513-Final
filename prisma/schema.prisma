@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,54 +8,49 @@ datasource db {
 }
 
 model triviaGame {
-  id          Int     @id @default(autoincrement())
-  state       Int
-  players     triviaGamePlayer[]
-  questions   triviaQuestion[]
-  answers     triviaPlayerAnswer[]
-  playerLimit Int
-  admin       String
+  id              Int                  @id @default(autoincrement())
+  state           Int
+  playerLimit     Int
+  admin           String
   currentQuestion BigInt
+  players         triviaGamePlayer[]
+  answers         triviaPlayerAnswer[]
+  questions       triviaQuestion[]     @relation("triviaGameTotriviaQuestion")
 }
 
 model triviaGamePlayer {
-  id        Int     @id @default(autoincrement())
-  game      triviaGame    @relation(fields: [gameId], references: [id])
-  gameId    Int
-  userId    String  
-  playerNumber Int
-  score     Int
+  id            Int                  @id @default(autoincrement())
+  gameId        Int
+  userId        String
+  score         Int
+  playerNumber  Int
+  game          triviaGame           @relation(fields: [gameId], references: [id])
   playerAnswers triviaPlayerAnswer[]
 }
 
 model triviaQuestion {
-  id        Int     @id @default(autoincrement())
-  question  String
-  answer    String
-  category  String
-  game      triviaGame[]
-  choices   triviaQuestionChoice[]
-  playerAnswers triviaPlayerAnswer[]
+  id       Int                    @id @default(autoincrement())
+  question String
+  answer   String
+  category String
+  choices  triviaQuestionChoice[]
+  game     triviaGame[]           @relation("triviaGameTotriviaQuestion")
 }
 
 model triviaQuestionChoice {
-  id        Int     @id @default(autoincrement())
-  question  triviaQuestion    @relation(fields: [questionId], references: [id])
-  questionId    Int
-  choice    String
-  correct   Boolean
-  playerAnswers triviaPlayerAnswer[]
+  id         Int            @id @default(autoincrement())
+  questionId Int
+  choice     String
+  correct    Boolean
+  question   triviaQuestion @relation(fields: [questionId], references: [id])
 }
 
 model triviaPlayerAnswer {
-  id          Int     @id @default(autoincrement())
-  player      triviaGamePlayer    @relation(fields: [playerId], references: [id])
-  gameId      Int
-  game        triviaGame    @relation(fields: [gameId], references: [id])
-  playerId    Int
-  question    triviaQuestion    @relation(fields: [questionId], references: [id])
-  questionId  Int
-  choice      triviaQuestionChoice    @relation(fields: [choiceId], references: [id])
-  choiceId    Int
-  gameRound   Int
+  id        Int              @id @default(autoincrement())
+  playerId  Int
+  gameId    Int
+  gameRound Int
+  choice    Int?
+  game      triviaGame       @relation(fields: [gameId], references: [id])
+  player    triviaGamePlayer @relation(fields: [playerId], references: [id])
 }

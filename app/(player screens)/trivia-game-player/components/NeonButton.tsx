@@ -1,18 +1,21 @@
+"use client";
+
 import Link from "next/link";
 
 interface NeonButtonProps {
-  href: string;
   textSize: string;
   padding?: string;
   hoverScale?: string;
   borderColor: string; // Added a new prop for the border color
   children: React.ReactNode;
+  handleClick?: (param: any) => void;
+  buttonId?: number;
 }
 
-const NeonButton: React.FC<NeonButtonProps> = ({ href, textSize, padding, hoverScale, borderColor, children }) => {
+const NeonButton: React.FC<NeonButtonProps> = ({ textSize, padding, hoverScale, borderColor, children, handleClick, buttonId }) => {
     return (
-        <Link href={href}>
             <button
+            onClick={() => handleClick && handleClick(buttonId)}
                 className={`text-white ${textSize} font-bold ${padding || "py-6 px-8"} rounded-md transition duration-300 ease-in-out transform ${hoverScale || "hover:scale-110"}`}
                 style={{
                     backgroundColor: "#0c0d0c",  
@@ -22,7 +25,6 @@ const NeonButton: React.FC<NeonButtonProps> = ({ href, textSize, padding, hoverS
                 }}>
                 {children}
             </button>
-        </Link>
     );
 };
 

@@ -60,10 +60,10 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             const { data: playerAnswers, error: playerAnswersError } = await supabase
                 .from('triviaPlayerAnswer')
                 .select()
-                .eq('questionId', questionData.id)
                 .eq("gameId", gameData![0].id)
                 .eq("gameRound", gameData![0].currentQuestion);
 
+            console.log(playerAnswers)
             // CHECK IF ERROR
             if (playerAnswersError) {
                 console.error('Error fetching player answers:', playerAnswersError);
@@ -79,6 +79,8 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
                 .eq('questionId', questionData.id)
                 .eq("correct", true)
 
+            console.log(correctAnswer)
+
 
             if (correctAnswersError) {
                 console.error('Error fetching correct answer:', correctAnswersError);
@@ -88,9 +90,10 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
             console.log(correctAnswer)
 
-            const correctAnswerId = correctAnswer![0].id
+            const correctAnswerId = correctAnswer![0].choiceNumber
 
-            const correctAnswerPlayerIds = playerAnswers!.filter((answer: any) => answer.choiceId === correctAnswerId).map((answer: any) => answer.playerId)
+            const correctAnswerPlayerIds = playerAnswers!.filter((answer: any) => answer.choice === correctAnswerId).map((answer: any) => answer.userId)
+
 
             console.log(correctAnswerPlayerIds)
 
@@ -101,7 +104,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
                     .from('triviaGamePlayer')
                     .select()
                     .eq('gameId', gameData![0].id)
-                    .eq('playerNumber', correctAnswerPlayerIds[i])
+                    .eq('userId', correctAnswerPlayerIds[i])
 
                 if (playerDataError) {
                     console.error('Error fetching player data:', playerDataError);
@@ -112,7 +115,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
                 const playerPoints = playerData![0].score + 20
 
-                await supabase.from('triviaGamePlayer').update({ score: playerPoints }).eq('gameId', gameData![0].id).eq('playerNumber', correctAnswerPlayerIds[i])
+                await supabase.from('triviaGamePlayer').update({ score: playerPoints }).eq('gameId', gameData![0].id).eq('userId', correctAnswerPlayerIds[i])
             }
 
             
