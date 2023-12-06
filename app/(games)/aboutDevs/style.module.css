@@ -1,0 +1,32 @@
+.all{
+    margin:0;
+    padding:0;
+}
+
+.body{
+    background-image: url('/GameBoard.PNG');
+}
+
+.contianer{
+    width: 80%;
+    margin: 50px auto;
+    
+}
+
+.contactBox{
+    background: white;
+    top: 50vh;
+}
+
+.contactBox h2{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+.contactBox p{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}

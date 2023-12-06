@@ -55,7 +55,7 @@ export default function Home() {
 
             {/*----Dev About----*/}
             <div className={styles["dev-about"]}>
-              <Link href="#" passHref>
+              <Link href="aboutDevs" passHref>
               <h1><u>about the devs</u></h1>
               </Link>
             </div>
