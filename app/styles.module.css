@@ -1,0 +1,254 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    width: 100%;
+    height: 92vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('/GameBoard.png');
+  }
+  
+  .row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title-container {
+    margin-top: 70px;
+  }
+  
+  .title-text-wrapper {
+    margin-right: 50vw;
+    transform: rotate(-10deg);
+    font-size: 50px;
+    color: yellow;
+    line-height: 0.1;
+  }
+  
+  .title-text1 {
+    font-size: 135px;
+  }
+  
+  .title-text2 {
+    font-size: 70px;
+    margin-top: 80px;
+  }
+  
+  .dev-about {
+    position: absolute;
+    top: 10vh;
+    right: 0vw;
+    margin: 0;
+    color: yellow;
+    z-index: 5;
+  }
+  
+  .ipad-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ipad {
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    list-style: none;
+    background-image: url('/iPadDisplay.PNG');
+    height: 90vh;
+    width: 80vw;
+    z-index: 4;
+    right: 0;
+    top: 8vh;
+  }
+  
+  .ipad-text {
+    color: yellow;
+    font-size: 25px;
+    z-index: 6;
+    position: relative;
+    top: 15vh; 
+    margin-left: 700px;
+    list-style: none;
+    overflow: hidden;
+    white-space: nowrap;
+    transform: rotate(9deg);
+    z-index: 6;
+  }
+  
+  .cards-container {
+    display: flex;
+  }
+  
+
+  
+  .card-title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 18px;
+  }
+  
+  .card1 {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+    height: 234px; 
+    width: 370px;
+
+    background-image: url('/BackTitleCard.png');
+    transform: rotate(255deg);
+    z-index: 1;
+    left: 15vw;
+    top: 27vh;
+    list-style: none;
+    
+  }
+  
+  .card2 {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+    height: 234px; 
+    width: 370px;
+
+    background-image: url('/BackTitleCard.png');
+    transform: rotate(270deg);
+    z-index: 2;
+    left: 20vw;
+    top: 31vh;
+    list-style: none;
+  }
+  
+  .card3 {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+    height: 234px; 
+    width: 370px;
+
+    background-image: url('/TitleCard.PNG');
+    transform: rotate(285deg);
+    z-index: 4;
+    left: 25vw;
+    top: 37vh;
+    list-style: none;
+    transition: transform 0.3s ease-in-out; /* Add smooth transition for a better effect */
+  }
+  
+  .card4 {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+
+    background-image: url('/TitleCard.PNG');
+    transform: rotate(300deg);
+    z-index: 4;
+    left: 30vw;
+    top: 45vh;
+    list-style: none;
+    height:234px;
+    width: 370px;
+    transition: transform 0.3s ease-in-out; /* Add smooth transition for a better effect */
+  }
+  
+.card3:hover{
+  transform: rotate(275deg) translateX(100px);
+  z-index: 10;
+}
+.card4:hover {
+  transform: rotate(280deg) translateX(125px);
+  z-index: 10;
+}
+
+  .coin-container {
+    display: flex;
+  }
+  
+  .coin-list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .coin1 {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+    height: 180px; 
+    width: 180px;  
+    font-size: 20px;
+    color: yellow;
+
+    background-image: url('/YellowChip.PNG');
+    transform: rotate(-10deg);
+    color: yellow;
+    right: 42vw;
+    top: 60vh;
+  }
+  
+  .coin2 {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+    height: 180px; 
+    width: 180px;  
+    font-size: 20px;
+    color: yellow;
+
+    background-image: url('/BlueChip.PNG');
+    transform: rotate(-5deg);
+    color: yellow;
+    right: 30vw;
+    top: 73vh;
+  }
+  
+  .coin3 {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    transform-origin: bottom center;
+    height: 180px; 
+    width: 180px;  
+    font-size: 20px;
+    color: yellow;
+
+    background-image: url('/RedChip.PNG');
+    transform: rotate(-15deg);
+    color: yellow;
+    right: 40vw;
+    top: 20vh;
+  }
+  
+  .coin-text {
+    text-align: center;
+    justify-items: center;
+  }
+  
