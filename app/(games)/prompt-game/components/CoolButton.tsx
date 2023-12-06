@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import React from "react";
+import toast from 'react-hot-toast';
 
 interface CoolButtonProps {
     href: string;

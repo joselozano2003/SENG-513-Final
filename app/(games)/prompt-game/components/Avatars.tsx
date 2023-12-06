@@ -40,13 +40,13 @@ export default function Avatars({ gridLayout, bg, gap, showPoints, gameId, playe
 
     useEffect(() => {
         const channel = supabase
-            .channel(`realtime:triviaGamePlayer:gameId=eq.${gameId}`)
+            .channel(`realtime:promptGamePlayer:gameId=eq.${gameId}`)
             .on(
                 "postgres_changes",
                 {
                     event: "*",
                     schema: "public",
-                    table: "triviaGamePlayer",
+                    table: "promptGamePlayer",
                 },
                 () => {
                     router.refresh();
@@ -57,7 +57,9 @@ export default function Avatars({ gridLayout, bg, gap, showPoints, gameId, playe
         return () => {
             supabase.removeChannel(channel);
         };
-    }, [supabase, router]);
+
+        // added one of the dependencies to be game ID - JY  
+    }, [supabase, router, gameId]);
 
     // const gridClass = gridLayout === "columns" ? "grid-cols-4" : "grid-rows-4 grid-cols-2";
     const bgClass = bg ? "bg-gray-100 bg-opacity-10 p-7" : "";
