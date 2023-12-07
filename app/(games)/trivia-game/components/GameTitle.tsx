@@ -6,6 +6,8 @@ interface GameTitleProps {
     fontSize?: string;
 }
 
+// Component for the game title
+// Displays the title of the game in a cool way given a certain input string
 const GameTitle: React.FC<GameTitleProps> = ({ title, fontSize = "text-8xl md:text-6xl" }: GameTitleProps) => {
     const [firstWord, secondWord] = title.split(" ");
 
