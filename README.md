@@ -1,9 +1,14 @@
 ## To access our deployed project
 Click this link: https://seng-513-final.vercel.app/
+
 Then login at the top right using any of the following accounts:
-  username: test1@gmail.com    password: test123
-  username: 
+
+username: test1@gmail.com  password: test123
+
+username: 
+
 After loggin in, if you are the host then stay on the current page, otherwise click the "player join here" link in the top right.
+
 From there, start the game if you are the host, or join the game with the code if you are a player.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
