@@ -26,32 +26,37 @@ interface Props {
 }
 
 export default async function TriviaLobby({ params }: Props) {
-    const { id } = params;
+    const { id } = params; // get the game id from the params
 
-    const cookieStore = cookies();
+    const cookieStore = cookies(); // get cookies from the request
 
-    const supabase = createClient(cookieStore);
+    const supabase = createClient(cookieStore); // create a supabase client with the cookies
 
-    const supabaseAuth = createServerComponentClient({ cookies });
+    const supabaseAuth = createServerComponentClient({ cookies }); // create a supabase auth client with the cookies
 
     const {
         data: { session },
-    } = await supabase.auth.getSession();
+    } = await supabase.auth.getSession(); // get the session from the cookies
 
     if (!session) {
-        return redirect("/unauthenticated");
+        return redirect("/unauthenticated"); // redirect to the unauthenticated page if there is no session
     }
 
-    const userId = session!.user.id;
+    const userId = session!.user.id; // get the user id from the session
 
+    // Get the game data from the database
     let { data: triviaGame, error: error1 } = await supabase.from("triviaGame").select("*").eq("id", id).eq("admin", userId);
 
+    // If there is an error, log it and alert the user
     if (error1) {
         console.log(error1);
         alert(error1.message);
     }
+
+    // If there is no data, redirect to the main menu
     console.log(triviaGame);
 
+    // If there is no data, redirect to the main menu
     if (triviaGame?.length === 0) {
         return (
             <div className="text-center text-2xl font-bold">
@@ -62,16 +67,22 @@ export default async function TriviaLobby({ params }: Props) {
             </div>
         );
     }
+
+    // If there is no data, redirect to the main menu
     console.log(triviaGame![0].id);
 
+
+    // Get the player data from the database
     let { data: playerData, error: error2, count } = await supabase.from("triviaGamePlayer").select("*", { count: "exact" }).eq("gameId", id);
 
+
+    // If there is an error, log it and alert the user
     if (error2) {
         console.log(error2);
         alert(error2.message);
     }
-    console.log(`Player data: ${playerData}, count: ${count}`);
-
+ 
+    // Players placeholder form images and names
     const players: Player[] = [
         { name: "Player 1", img: "/player-1.png", },
         { name: "Player 2", img: "/player-2-cursed.png",},

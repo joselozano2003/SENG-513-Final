@@ -6,46 +6,40 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 
 
-
+// Component to process user input and add them to a game
 export default function JoinForm() {
 
 	const colorClasses =  "bg-blue-500 hover:bg-blue-700";
     const textShadowColor = "blue";
 
+	// Function to handle the submission of the form
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const formData = new FormData(e.currentTarget);
-		const gameCode = formData.get("gameCode");
+		e.preventDefault(); // prevent the default form submission
 
-		const body = {
+		const formData = new FormData(e.currentTarget); // get the form data
+		const gameCode = formData.get("gameCode"); // get the game code from the form data
+
+		const body = { // create the body of the request
 			id: gameCode,
-		};
-
-		console.log(body);
-
-	
+		}
 
 		try {
-			const res = await fetch("/api/trivia/join", {
+			const res = await fetch("/api/trivia/join", { // send a request to the server to join the game
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body),
 			});
 
-			console.log(res.status);
-
-			if (res.status == 200) {
+			if (res.status == 200) { // if the response is ok, redirect to the waiting page
 				window.location.href = `/trivia-game-player/${gameCode}/player-wait`; 
 			} else {
-				alert("Invalid game code");
+				alert("Invalid game code"); // if the response is not ok, alert the user
 			}
 		}
-		catch (err) {
-			console.log(err);
-			alert("Invalid game code");
+		catch (err) { // if there is an error, log it and alert the user
+			console.log(err); 	
+			alert("Invalid game code"); 
 		}
-
-
 	}
 
     return (

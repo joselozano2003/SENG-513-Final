@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
+// Page that is displayed when the game code is invalid
 export default function page() {
   return (
     <div className="text-white text-center font-bold">

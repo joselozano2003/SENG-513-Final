@@ -6,9 +6,10 @@ interface Props {
     };
 }
 
+// This is the page that is shown when the game is not found and prompts the user to go back to the main menu
 export default async function NotFound({ params }: Props){
 
-    const { id } = params
+    const { id } = params // get the game id from the params
 
 
 
@@ -20,7 +21,7 @@ export default async function NotFound({ params }: Props){
     )
 }
 
-
+// UI button to go back to the main menu
 function ButtonBack() {
     return(
         <Link

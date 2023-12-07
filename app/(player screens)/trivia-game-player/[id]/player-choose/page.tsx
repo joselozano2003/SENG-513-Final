@@ -20,48 +20,53 @@ interface Props {
 
 const MobilePlayerPage = async ({ params }: Props) => {
 
-	const id = params.id;
+	const id = params.id; // get the game id from the params
  
-    const cookieStore = cookies();
+    const cookieStore = cookies(); // get cookies from the request
 
-    const supabase = createClient(cookieStore);
+    const supabase = createClient(cookieStore); // create a supabase client with the cookies
 
-    const supabaseAuth = createServerComponentClient({ cookies });
+    const supabaseAuth = createServerComponentClient({ cookies }); // create a supabase auth client with the cookies
 
 	const {
         data: { session },
-    } = await supabase.auth.getSession();
+    } = await supabase.auth.getSession(); // get the session from the cookies
 
     
     if (!session) {
-        redirect("/login");
+        redirect("/login"); // redirect to the unauthenticated page if there is no session
     }
 
-	const userId = session?.user?.id;
+	const userId = session?.user?.id; // get the user id from the session
 
+	// Get the player data from the database
 	let { data: triviaPlayer, error: error2 } = await supabase.from("triviaGamePlayer").select("*").eq("gameId", id).eq("userId", userId)
 
+	// If there is an error, log it and alert the user
     console.log(triviaPlayer)
 
+
+	// If there is an error, log it and alert the user
     if (triviaPlayer!.length == 0) {
         redirect(`/`)
     }
 
+	// Get the game data from the database
 	let { data: triviaGame, error: error1 } = await supabase.from("triviaGame").select("*").eq("id", id)
 
-	console.log(triviaGame)
-
+	// If there is an error, log it and alert the user
 	const currentQuestion = triviaGame![0].currentQuestion;
 
-	const playerNumber = triviaPlayer![0].playerNumber;
+	// If there is an error, log it and alert the user
 
 	const gameState = triviaGame![0].state;
 
 
 	if (gameState == 1) {
-		redirect(`/trivia-game-player/${id}/player-wait`)
+		redirect(`/trivia-game-player/${id}/player-wait`) // redirect to the waiting page if the game has not started 
 	}
 
+	// If game has started, render the game page
 	if (gameState == 2) {
 		return (
 			<div>
@@ -88,6 +93,7 @@ const MobilePlayerPage = async ({ params }: Props) => {
 		);
 	}
 
+	// If game has ended, render the end page
 	if (gameState == 3) {
 		return (
 			<div>
@@ -95,8 +101,6 @@ const MobilePlayerPage = async ({ params }: Props) => {
 			</div>
 		)
 	}
-
-    
   };
   
   export default MobilePlayerPage;

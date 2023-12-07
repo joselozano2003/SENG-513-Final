@@ -1,6 +1,7 @@
 import React from "react";
 import CoolButton from "../../components/CoolButton";
 
+// Intro page for the trivia game
 export default function page() {
     return (
         <div

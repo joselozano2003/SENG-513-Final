@@ -14,17 +14,17 @@ import { redirect } from "next/navigation";
 export default async function JoinGamePage() {
 
 
-  const cookieStore = cookies()
+  const cookieStore = cookies() // get cookies from the request
 
-  const supabase = createClient(cookieStore)
+  const supabase = createClient(cookieStore) // create a supabase client with the cookies
 
-  const supabaseAuth = createServerComponentClient({ cookies })
+  const supabaseAuth = createServerComponentClient({ cookies }) // create a supabase auth client with the cookies
 
-  const { data: { session }} = await supabase.auth.getSession()
+  const { data: { session }} = await supabase.auth.getSession() // get the session from the cookies
 
 
   if (!session) {
-      return redirect('/unauthenticated')
+      return redirect('/unauthenticated') // redirect to the unauthenticated page if there is no session
   }
 
   return (

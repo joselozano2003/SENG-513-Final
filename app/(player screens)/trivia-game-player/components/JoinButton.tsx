@@ -13,7 +13,7 @@ interface JoinButtonProps {
     handleClick: () => void;
 }
 
-
+// Button that is reusable across the app to keep styling consistent 
 const JoinButton: React.FC<JoinButtonProps> = ({textSize, padding, hoverScale, color, handleClick }) => {
     const colorClasses = color === "green" ? "bg-green-500 hover:bg-green-700" : "bg-blue-500 hover:bg-blue-700";
     const textShadowColor = color === "green" ? "darkgreen" : "blue";

@@ -16,22 +16,21 @@ interface NeonButtonProps {
 }
 
 
-
+// Button that is reusable across the app to keep styling consistent, it is used for handling user choices
 const NeonButton: React.FC<NeonButtonProps> = ({ textSize, padding, hoverScale, borderColor, children, buttonId, gameId, currentQuestion, userId }) => {
 
+    // Function to handle the click of the button
     async function handleClick(buttonId: number) { 
     
-        const body = {
+        const body = { // Create a body to send to the server
 			gameId: gameId,
 			gameRound: currentQuestion,
 			choice: buttonId,
 			userId: userId,
 		}
 
-		console.log(body)
-
 		try{
-			const res = await fetch("/api/trivia/user", {
+			const res = await fetch("/api/trivia/user", { // Send a request to the server to start the game
 				method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -39,10 +38,9 @@ const NeonButton: React.FC<NeonButtonProps> = ({ textSize, padding, hoverScale, 
                 body: JSON.stringify(body)
 			});
 	
-			console.log(res.status)
 		}
 		catch (err) {
-			console.log(err)
+			console.log(err) // If there is an error, log it
 		}
         
     }
