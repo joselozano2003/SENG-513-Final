@@ -1,3 +1,5 @@
+Release 1.0
+
 ## To access our deployed project
 Click this link: https://seng-513-final.vercel.app/
 
