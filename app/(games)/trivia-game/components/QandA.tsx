@@ -57,6 +57,8 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
     useEffect(() => {
         const timer = setTimeout(async () => {
+            // get player answers from triviaPlayerAnswer table
+            // check gameId and gameRound
             const { data: playerAnswers, error: playerAnswersError } = await supabase
                 .from('triviaPlayerAnswer')
                 .select()
@@ -73,6 +75,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             console.log(playerAnswers)
 
             // Get the correct answer
+            // SELECT FROM triviaQuestionChoice table
             let { data:correctAnswer, error:correctAnswersError } = await supabase
                 .from('triviaQuestionChoice')
                 .select()
@@ -82,6 +85,7 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             console.log(correctAnswer)
 
 
+            // if error occurs when obtaining correct answers, print error to console
             if (correctAnswersError) {
                 console.error('Error fetching correct answer:', correctAnswersError);
                 console.log(correctAnswersError)
@@ -98,14 +102,17 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
             console.log(correctAnswerPlayerIds)
 
             // Update the players' points
-
+        
             for (let i = 0; i < correctAnswerPlayerIds.length; i++) {
                 const { data: playerData, error: playerDataError } = await supabase
+                // SELECT FROM TABLE "triviaGamePlayer"
+                // check for gameId and userId
                     .from('triviaGamePlayer')
                     .select()
                     .eq('gameId', gameData![0].id)
                     .eq('userId', correctAnswerPlayerIds[i])
 
+                    // if error to obtain player data 
                 if (playerDataError) {
                     console.error('Error fetching player data:', playerDataError);
                     return;
@@ -113,9 +120,15 @@ export default function QandA({ questions, gameData, choices }: QuandAProps) {
 
                 console.log(playerData)
 
-                const playerPoints = playerData![0].score + 20
+                // update the score by 20 points
 
-                await supabase.from('triviaGamePlayer').update({ score: playerPoints }).eq('gameId', gameData![0].id).eq('userId', correctAnswerPlayerIds[i])
+                const playerPoints = playerData![0].score + 20
+                // UPDATE CURRENT SCORE WITH PLAYER POINTS
+                // CHECK GAME ID AND USERID
+                await supabase.from('triviaGamePlayer')
+                .update({ score: playerPoints })
+                .eq('gameId', gameData![0].id).
+                eq('userId', correctAnswerPlayerIds[i])
             }
 
             
