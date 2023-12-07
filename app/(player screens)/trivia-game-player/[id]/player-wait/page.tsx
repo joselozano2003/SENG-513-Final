@@ -45,7 +45,7 @@ async function WaitingPage({ params }: Props) {
 
 	const playerNumber = triviaPlayer![0].playerNumber;
 
-	return (
+	return ( // below are the waiting instructions printed and your info
 		<div className={`flex flex-col justify-center items-center text-4xl font-bold text-white [&>*]:m-5`}>
 			<h1>You joined game {id}</h1>
 			<h1>You are player {playerNumber}</h1>
