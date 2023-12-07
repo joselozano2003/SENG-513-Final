@@ -44,7 +44,7 @@ export default function Home() {
             </div>
 
             {/*----Dev About----*/}
-            <div className={styles["dev-about"]}>
+            <div className={styles["player-join"]}>
               <Link href="/trivia-game-player" passHref>
               <h1><u>player join here</u></h1>
               </Link>
