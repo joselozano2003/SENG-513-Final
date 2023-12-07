@@ -11,21 +11,11 @@ export default function Home() {
   const [coinText3, setCoinText3] = useState('Time');
   const [screenImage, setScreenImage] = useState<string | null>(null);
 
-  //Called when user hovers mouse over the third card
-  const handleCard3Hover = () => {
-    // Change the coin text on hover
-    setCoinText1('Creative\nAnswers');
-    setCoinText2('8 Players');
-    setCoinText3('45\nminutes')
-    // Change the image on ipad on hover
-    setScreenImage('/promptGameplay.png');
-  };
-
   //Called when user hovers mouse over the fourth card
   const handleCard4Hover = () => {
     // Change the coin text on hover
     setCoinText1('Puzzle');
-    setCoinText2('10 Players');
+    setCoinText2('8 Players');
     setCoinText3('30\nminutes');
     // Change the image on ipad on hover
     setScreenImage('/triviaGameplay.png');
@@ -100,15 +90,13 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/*----#3 used----*/}
-                <div className={styles["card-inner"]} onMouseEnter={() => {handleCard3Hover();}}onMouseLeave={() => {handleCardLeave();}}>
-                  <Link href="/prompt-game" passHref>
+                {/*----#3 Not in use----*/}
+                <div className={styles["card-inner"]}>
                     <div className={styles.card3} id="Card3">
                       <div className={styles["card-title"]}>
-                        <h2 className="card-title-text">Prompt Game</h2>
+                        <h2 className="card-title-text"></h2>
                       </div>
                     </div>
-                  </Link>
                 </div>
 
                 {/*----#4 used----*/}
