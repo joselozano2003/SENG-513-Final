@@ -140,7 +140,7 @@ export default async function GamePage({ params }: Props) {
                     <JoinStuff id={id} />
                 </div>
                 <CoolButton href={`/trivia-game/${id}/end`} textSize="text-lg" hoverScale="hover:scale-100" padding="py-2 px-2">
-                    go to end screen (temporary)
+                    Go to End Screen
                 </CoolButton>
                 <CoolButton href="/" textSize="text-lg" hoverScale="hover:scale-100" padding="py-2 px-2">
                     Quit
