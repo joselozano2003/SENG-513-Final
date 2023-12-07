@@ -20,57 +20,58 @@ interface Props {
 
 async function EndingScreen ({ params }: Props) {
 
-	const { id } = params;
+	const { id } = params; // get the game id from the params
 
-	const cookieStore = cookies();
+	const cookieStore = cookies(); // get cookies from the request
 
-    const supabase = createClient(cookieStore);
+    const supabase = createClient(cookieStore); // create a supabase client with the cookies
 
-    const supabaseAuth = createServerComponentClient({ cookies });
+    const supabaseAuth = createServerComponentClient({ cookies }); // create a supabase auth client with the cookies
 
 	const {
         data: { session },
-    } = await supabase.auth.getSession();
+    } = await supabase.auth.getSession(); // get the session from the cookies
 
     if (!session) {
-        return redirect("/unauthenticated");
+        return redirect("/unauthenticated"); // redirect to the unauthenticated page if there is no session
     }
 
-	const userId = session!.user.id;
+	const userId = session!.user.id; // get the user id from the session
 
+	// Get the game data from the database
     let { data: triviaGame, error: error1 } = await supabase.from("triviaGame").select("*").eq("id", id).eq("admin", userId);
 
+	// If there is an error, log it and alert the user
     if (error1) {
         console.log(error1);
         alert(error1.message);
     }
 
+	// If there is no data, redirect to the main menu
 	console.log(triviaGame);
 
+	// Get the player data from the database
 	let { data: playerData, error: error2, count } = await supabase.from("triviaGamePlayer").select("*", { count: "exact" }).eq("gameId", id).order("score", { ascending: false });
 
+	// If there is an error, log it and alert the user
 	if (error2) {
 		console.log(error2);
 		alert(error2.message);
 	}
-
-	console.log(playerData);
-
+ 
+	// Get the max score from the game
 	const maxScore = playerData![0].score;
 
-	console.log(maxScore);
-
+	// Get the player numbers of the winners
 	let winners = [];
 
+	// Loop through the player data and add the player numbers of the winners to the winners array
 	for (let i = 0; i < count!; i++) {
 		if (playerData![i].score === maxScore) {
 			winners.push(playerData![i].playerNumber);
 		}
 	}
-
-	console.log(winners);
 	
-
 	return (
 		<div className={`text-white flex flex-col items-center h-full justify-center`}>
 			<div className="mb-4">

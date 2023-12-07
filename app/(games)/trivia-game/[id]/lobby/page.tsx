@@ -73,14 +73,14 @@ export default async function TriviaLobby({ params }: Props) {
     console.log(`Player data: ${playerData}, count: ${count}`);
 
     const players: Player[] = [
-        { name: "Player 1", img: "/player-1.png", points: 0 },
-        { name: "Player 2", img: "/player-2-cursed.png", points: 999 },
-        { name: "Player 3", img: "/player-3.png", points: 0 },
-        { name: "Player 4", img: "/player-4.png", points: 0 },
-        { name: "Player 5", img: "/player-5.png", points: 0 },
-        { name: "Player 6", img: "/player-6.png", points: 0 },
-        { name: "Player 7", img: "/player-7.png", points: 0 },
-        { name: "Player 8", img: "/player-8.png", points: 0 },
+        { name: "Player 1", img: "/player-1.png", },
+        { name: "Player 2", img: "/player-2-cursed.png",},
+        { name: "Player 3", img: "/player-3.png",  },
+        { name: "Player 4", img: "/player-4.png", },
+        { name: "Player 5", img: "/player-5.png", },
+        { name: "Player 6", img: "/player-6.png", },
+        { name: "Player 7", img: "/player-7.png", },
+        { name: "Player 8", img: "/player-8.png", },
     ];
 
     return (

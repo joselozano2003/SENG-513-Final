@@ -64,7 +64,7 @@ const MobilePlayerPage = async ({ params }: Props) => {
 
 	if (gameState == 2) {
 		return (
-			<div> // below are all the answer buttons for the game using neon button asset
+			<div>
 				<div className="[&>*]:m-5 flex flex-col items-center">
 				<GameTitle title="Trivia Game" fontSize="text-6xl" />
 				<GameTitle title={`Question ${currentQuestion}`} fontSize="text-4xl" />
